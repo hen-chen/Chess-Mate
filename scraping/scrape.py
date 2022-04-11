@@ -3,11 +3,27 @@ import numpy as np
 import chess.pgn
 import pymysql
 from dotenv import dotenv_values
+import requests
 
 # Replace
 LICHESS_PGN_PATH = "../../proj/lichess_db_standard_rated_2022-03.pgn"
 
-pgn = open(LICHESS_PGN_PATH)
+def fetch_lichess_info(usernames):
+  payload=",".join(usernames)
+  headers = {
+    'Content-Type': 'text/plain'
+  }
+  res = requests.post("https://lichess.org/api/users", data=payload, headers=headers)
+  print(res.text)
+
+def fetch_rating_hist(username):
+  res = requests.get(f"https://lichess.org/api/user/{username}/rating-history")
+  print(res.text)
+
+fetch_lichess_info(["superfastfourier", "SnakeCase"])
+fetch_rating_hist("SnakeCase")
+
+# pgn = open(LICHESS_PGN_PATH)
 
 # while pgn != None:
 #   game = chess.pgn.read_game(pgn)
@@ -15,7 +31,6 @@ pgn = open(LICHESS_PGN_PATH)
 
 # Connect to db
 config = dotenv_values(".env")
-print(config)
 host = config["DB_HOST"]
 user = config["DB_USER"]
 password = config["DB_PASSWORD"]

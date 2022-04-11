@@ -4,3 +4,4 @@ chess
 pymysql
 python-dotenv
 black
+requests
