@@ -6,7 +6,7 @@ from dotenv import dotenv_values
 import requests
 
 # Replace
-LICHESS_PGN_PATH = "../../proj/lichess_db_standard_rated_2022-03.pgn"
+LICHESS_PGN_PATH = "../../proj/caissabase.pgn"
 
 def fetch_lichess_info(usernames):
   payload=",".join(usernames)
@@ -23,11 +23,11 @@ def fetch_rating_hist(username):
 fetch_lichess_info(["superfastfourier", "SnakeCase"])
 fetch_rating_hist("SnakeCase")
 
-# pgn = open(LICHESS_PGN_PATH)
+pgn = open(LICHESS_PGN_PATH)
 
-# while pgn != None:
-#   game = chess.pgn.read_game(pgn)
-#   print(game)
+while pgn != None:
+  game = chess.pgn.read_game(pgn)
+  print(game)
 
 # Connect to db
 config = dotenv_values(".env")
