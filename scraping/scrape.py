@@ -81,6 +81,16 @@ def parse_raw_user(raw_user):
   user["isVerified"] = raw_user.get("verified", False)
   return user
 
+def is_in_db(connection, user_id):
+  with connection.cursor() as cursor:
+    sql = f"SELECT `id` FROM LichessPlayers WHERE `id`=%s"
+    cursor.execute(sql, user_id)
+    result = cursor.fetchone()
+    if result:
+      return True
+    else:
+      return False
+
 def insert_parsed_users(connection, cursor, parsed_users: list[dict]):
   if len(parsed_users) == 0:
     return
@@ -93,9 +103,9 @@ def insert_parsed_users(connection, cursor, parsed_users: list[dict]):
     cursor.executemany(sql, parsed_users_list)
     connection.commit()
 
-# Insert all users first (about 500k)
+# Insert all users first (about 200k)
 # Later we will insert a sample of games for each user (maybe 10-100)
-# Since 500 million is somewhat unfeasible
+# Since 90 million games is somewhat unfeasible...
 # quantity = number of games to read, default read all
 def export_lichess_users(pgn_path, connection, quantity=None):
   pgn = open(pgn_path)
@@ -140,6 +150,10 @@ connection = pymysql.connect(host=host,
                              database=database,
                              port=3306)
 
-export_lichess_users(LICHESS_PGN_PATH, connection, 2000)
+# export_lichess_users(LICHESS_PGN_PATH, connection)
+
+for i in range(1000):
+  print(is_in_db(connection, "asfaclksncdljweofwne"))
+  print(is_in_db(connection, "aarnavg"))
 
 connection.close()
