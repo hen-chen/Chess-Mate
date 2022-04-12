@@ -7,7 +7,6 @@ from dotenv import dotenv_values
 import requests
 import time
 import json
-import re
 
 # Replace
 LICHESS_PGN_PATH = "../../proj/lichess_db_standard_rated_2022-03.pgn"
@@ -85,27 +84,35 @@ def parse_raw_user(raw_user):
 
 def parse_lichess_game(game):
   try:
-    headers = game.headers()
+    headers = game.headers
     res = {}
     site = headers.get("Site")
     res["id"] = site.partition("https://lichess.org/")[2]
+    if not res["id"]:
+      return None
     res["date"] = headers.get("Date")
     res["time"] = headers.get("Time")
     res["timeControl"] = headers.get("TimeControl")
     res["eco"] = headers.get("ECO")
-    res["whiteId"] = headers.get("White", "").toLower()
+    res["whiteId"] = headers.get("White", "").lower()
     if not res["whiteId"]:
       return None
     res["whiteRating"] = headers.get("WhiteElo")
-    res["blackId"] = headers.get("Black", "").toLower()
+    res["blackId"] = headers.get("Black", "").lower()
     if not res["blackId"]:
       return None
     res["blackRating"] = headers.get("BlackElo")
     res["result"] = headers.get("Result")
     res["pgn"] = str(game)
     return res
-  except:
+  except Exception as e:
+    print("Exception parsing pgn:", e)
     return None
+
+def test_parse_lichess_game():
+  pgn = open("./test/testPgn.pgn")
+  game = chess.pgn.read_game(pgn)
+  print(parse_lichess_game(game))
 
 def is_in_db(connection, username):
   user_id = username.lower()
@@ -185,6 +192,7 @@ connection = pymysql.connect(host=host,
                              database=database,
                              port=3306)
 
-export_lichess_users(LICHESS_PGN_PATH, connection, 30000)
+test_parse_lichess_game()
+# export_lichess_users(LICHESS_PGN_PATH, connection, 30000)
 
 connection.close()
