@@ -13,7 +13,7 @@ CREATE TABLE LichessPlayers (
     uscfRating INT,
     ecfRating INT,
     createdAt BIGINT,
-    seanAt BIGINT,
+    seenAt BIGINT,
     title enum('GM','WGM','IM','WIM','FM','WFM','CM','WCM','NM','WNM','LM'),
     bulletRating INT,
     bulletNumGames INT,

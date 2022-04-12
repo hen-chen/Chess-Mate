@@ -7,7 +7,6 @@ from dotenv import dotenv_values
 import requests
 import time
 import json
-import csv
 
 # Replace
 LICHESS_PGN_PATH = "../../proj/lichess_db_standard_rated_2022-03.pgn"
@@ -23,9 +22,12 @@ def fetch_lichess_info(usernames):
   }
   res = requests.post("https://lichess.org/api/users", data=payload, headers=headers)
   if res.status_code == 429:
+    print("rate limited - waiting")
     time.sleep(60) # lichess api rate lim - wait a full minute if you get 429 response
   if res.ok:
     return res.json()
+  else:
+    print("error response", res)
 
 def fetch_rating_hist(username):
   res = requests.get(f"https://lichess.org/api/user/{username}/rating-history")
@@ -79,31 +81,40 @@ def parse_raw_user(raw_user):
   user["isVerified"] = raw_user.get("verified", False)
   return user
 
+def insert_parsed_users(connection, cursor, parsed_users: list[dict]):
+  if len(parsed_users) == 0:
+    return
+  else:
+    placeholders = ', '.join(['%s'] * len(parsed_users[0]))
+    columns = ", ".join(parsed_users[0].keys())
+    sql = f"INSERT IGNORE INTO LichessPlayers ({columns}) VALUES ({placeholders})"
+
+    parsed_users_list = list(map(lambda dict: list(dict.values()), parsed_users))
+    cursor.executemany(sql, parsed_users_list)
+    connection.commit()
 
 # Insert all users first (about 500k)
 # Later we will insert a sample of games for each user (maybe 10-100)
 # Since 500 million is somewhat unfeasible
 # quantity = number of games to read, default read all
-def export_lichess_users(pgn_path, output_file_path="./lichess_users.csv", quantity=None):
+def export_lichess_users(pgn_path, connection, quantity=None):
   pgn = open(pgn_path)
   game = chess.pgn.read_game(pgn)
   count = 0
   users = [] # accumulate 300
 
-  output_file = open(output_file_path, 'w', encoding='utf8', newline='')
-  writer = None
+  cursor = connection.cursor()
 
   while game != None and (quantity == None or count < quantity):
-    if (len(users) >= 5):
-      raw_data_arr = mock_fetch_lichess_info(users)
-      parsed_data = list(map(parse_raw_user, raw_data_arr))
-
-      if writer == None and len(parsed_data) > 0:
-        writer = csv.DictWriter(output_file, fieldnames=parsed_data[0].keys())
-        writer.writeheader()
+    if (len(users) >= 300):
+      raw_data_arr = fetch_lichess_info(users)
+      if (type(raw_data_arr) is list):
+        parsed_data = list(map(parse_raw_user, raw_data_arr))
+        parsed_filtered_data = list(filter(lambda x: x != None, parsed_data))
+        insert_parsed_users(connection, cursor, parsed_filtered_data)
+        print("Inserted batch of users")
       else:
-        writer.writerows(parsed_data)
-
+        print("unexpected data in response", raw_data_arr)
       users.clear()
 
     white = game.headers["White"]
@@ -115,8 +126,6 @@ def export_lichess_users(pgn_path, output_file_path="./lichess_users.csv", quant
     # iterate
     game = chess.pgn.read_game(pgn)
     count = count + 1
-  
-  output_file.close()
 
 # Connect to db
 config = dotenv_values(".env")
@@ -125,10 +134,12 @@ user = config["DB_USER"]
 password = config["DB_PASSWORD"]
 database = config["DB_NAME"]
 
-# connection = pymysql.connect(host=host,
-#                              user=user,
-#                              password=password,
-#                              database=database,
-#                              port=3306)
+connection = pymysql.connect(host=host,
+                             user=user,
+                             password=password,
+                             database=database,
+                             port=3306)
 
-export_lichess_users(LICHESS_PGN_PATH, "meow", 100)
+export_lichess_users(LICHESS_PGN_PATH, connection, 2000)
+
+connection.close()
