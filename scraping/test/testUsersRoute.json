@@ -1,0 +1,123 @@
+[
+  {
+      "id": "asesinadereyes",
+      "username": "ASESINADEREYES",
+      "perfs": {
+          "blitz": {
+              "games": 3921,
+              "rating": 1807,
+              "rd": 45,
+              "prog": 32
+          },
+          "puzzle": {
+              "games": 16,
+              "rating": 1838,
+              "rd": 224,
+              "prog": 0,
+              "prov": true
+          },
+          "ultraBullet": {
+              "games": 11,
+              "rating": 1065,
+              "rd": 220,
+              "prog": 0,
+              "prov": true
+          },
+          "bullet": {
+              "games": 1595,
+              "rating": 1592,
+              "rd": 46,
+              "prog": -2
+          },
+          "correspondence": {
+              "games": 2,
+              "rating": 1842,
+              "rd": 334,
+              "prog": 0,
+              "prov": true
+          },
+          "classical": {
+              "games": 3,
+              "rating": 1461,
+              "rd": 217,
+              "prog": 0,
+              "prov": true
+          },
+          "rapid": {
+              "games": 198,
+              "rating": 1778,
+              "rd": 48,
+              "prog": 3
+          },
+          "racer": {
+              "runs": 1,
+              "score": 10
+          }
+      },
+      "createdAt": 1569797915327,
+      "profile": {
+          "country": "AR",
+          "location": "America latina",
+          "bio": "16/02/1998 (23 años)                                                                                                                                                       \r\nNo juego en ningun club. Solo en paginas de ajedrez, por internet.",
+          "firstName": "Alina",
+          "lastName": "Diez",
+          "links": "Flyordie"
+      },
+      "seenAt": 1649732859080,
+      "playTime": {
+          "total": 1588052,
+          "tv": 0
+      }
+  },
+  {
+      "id": "helloworld",
+      "username": "helloworld",
+      "perfs": {
+          "blitz": {
+              "games": 6,
+              "rating": 1897,
+              "rd": 365,
+              "prog": 414,
+              "prov": true
+          },
+          "bullet": {
+              "games": 0,
+              "rating": 1500,
+              "rd": 500,
+              "prog": 0,
+              "prov": true
+          },
+          "correspondence": {
+              "games": 0,
+              "rating": 1500,
+              "rd": 500,
+              "prog": 0,
+              "prov": true
+          },
+          "classical": {
+              "games": 0,
+              "rating": 1500,
+              "rd": 500,
+              "prog": 0,
+              "prov": true
+          },
+          "rapid": {
+              "games": 5,
+              "rating": 1877,
+              "rd": 338,
+              "prog": 0,
+              "prov": true
+          }
+      },
+      "createdAt": 1308655859000,
+      "playTime": {
+          "total": 8872,
+          "tv": 0
+      }
+  },
+  {
+      "id": "superfastfourier",
+      "username": "superfastfourier",
+      "disabled": true
+  }
+]
