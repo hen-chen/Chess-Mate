@@ -37,7 +37,8 @@ createLichessGames = """
 CREATE TABLE LichessGames(
     id VARCHAR(8) NOT NULL,
     date VARCHAR(10), # support partial dates like 1862.??.??
-    time VARCHAR(8), # HH:MM:SS
+    time VARCHAR(8), # HH:MM:SS,
+    timeControl VARCHAR(10),
     eco VARCHAR(4), # add extra char to support extended eco code from caissabase
     whiteId VARCHAR(20) NOT NULL,
     whiteRating INT,

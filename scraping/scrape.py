@@ -7,6 +7,7 @@ from dotenv import dotenv_values
 import requests
 import time
 import json
+import re
 
 # Replace
 LICHESS_PGN_PATH = "../../proj/lichess_db_standard_rated_2022-03.pgn"
@@ -18,16 +19,17 @@ def mock_fetch_lichess_info(usernames):
 def fetch_lichess_info(usernames):
   payload=",".join(usernames)
   headers = {
-    'Content-Type': 'text/plain'
+    'Content-Type': 'text/plain',
+    'User-Agent': 'pls-spare-some-cpu-time-for-a-poor-student'
   }
   res = requests.post("https://lichess.org/api/users", data=payload, headers=headers)
   if res.status_code == 429:
-    print("rate limited - waiting")
-    time.sleep(60) # lichess api rate lim - wait a full minute if you get 429 response
+    print(res.content)
+    print("rate limited - waiting for 2 minutes")
+    time.sleep(120) # lichess api rate lim - wait a full minute if you get 429 response
+    return None
   if res.ok:
     return res.json()
-  else:
-    print("error response", res)
 
 def fetch_rating_hist(username):
   res = requests.get(f"https://lichess.org/api/user/{username}/rating-history")
@@ -81,7 +83,32 @@ def parse_raw_user(raw_user):
   user["isVerified"] = raw_user.get("verified", False)
   return user
 
-def is_in_db(connection, user_id):
+def parse_lichess_game(game):
+  try:
+    headers = game.headers()
+    res = {}
+    site = headers.get("Site")
+    res["id"] = site.partition("https://lichess.org/")[2]
+    res["date"] = headers.get("Date")
+    res["time"] = headers.get("Time")
+    res["timeControl"] = headers.get("TimeControl")
+    res["eco"] = headers.get("ECO")
+    res["whiteId"] = headers.get("White", "").toLower()
+    if not res["whiteId"]:
+      return None
+    res["whiteRating"] = headers.get("WhiteElo")
+    res["blackId"] = headers.get("Black", "").toLower()
+    if not res["blackId"]:
+      return None
+    res["blackRating"] = headers.get("BlackElo")
+    res["result"] = headers.get("Result")
+    res["pgn"] = str(game)
+    return res
+  except:
+    return None
+
+def is_in_db(connection, username):
+  user_id = username.lower()
   with connection.cursor() as cursor:
     sql = f"SELECT `id` FROM LichessPlayers WHERE `id`=%s"
     cursor.execute(sql, user_id)
@@ -107,35 +134,43 @@ def insert_parsed_users(connection, cursor, parsed_users: list[dict]):
 # Later we will insert a sample of games for each user (maybe 10-100)
 # Since 90 million games is somewhat unfeasible...
 # quantity = number of games to read, default read all
-def export_lichess_users(pgn_path, connection, quantity=None):
+def export_lichess_users(pgn_path, connection, start_count=0, quantity=None):
   pgn = open(pgn_path)
-  game = chess.pgn.read_game(pgn)
+  headers = chess.pgn.read_headers(pgn)
   count = 0
   users = [] # accumulate 300
 
   cursor = connection.cursor()
 
-  while game != None and (quantity == None or count < quantity):
+  while headers != None and (quantity == None or count < quantity):
+    if count < start_count:
+      chess.pgn.skip_game(pgn)
+      count = count + 1
+      continue
     if (len(users) >= 300):
+      print("Going to fetch: ", users)
       raw_data_arr = fetch_lichess_info(users)
       if (type(raw_data_arr) is list):
         parsed_data = list(map(parse_raw_user, raw_data_arr))
         parsed_filtered_data = list(filter(lambda x: x != None, parsed_data))
         insert_parsed_users(connection, cursor, parsed_filtered_data)
         print("Inserted batch of users")
+        users.clear()
       else:
-        print("unexpected data in response", raw_data_arr)
-      users.clear()
+        print("Not parsing", raw_data_arr)
+        continue
 
-    white = game.headers["White"]
-    black = game.headers["Black"]
-    if white != None:
+    white = headers["White"]
+    black = headers["Black"]
+    if white and not is_in_db(connection, white):
       users.append(white)
-    if black != None:
+    if black and not is_in_db(connection, black):
       users.append(black)
     # iterate
-    game = chess.pgn.read_game(pgn)
     count = count + 1
+    headers = chess.pgn.read_headers(pgn)
+    if count % 1000 == 0:
+      print("PGNs read:", count)
 
 # Connect to db
 config = dotenv_values(".env")
@@ -150,10 +185,6 @@ connection = pymysql.connect(host=host,
                              database=database,
                              port=3306)
 
-# export_lichess_users(LICHESS_PGN_PATH, connection)
-
-for i in range(1000):
-  print(is_in_db(connection, "asfaclksncdljweofwne"))
-  print(is_in_db(connection, "aarnavg"))
+export_lichess_users(LICHESS_PGN_PATH, connection, 30000)
 
 connection.close()
