@@ -125,17 +125,28 @@ def is_in_db(connection, username):
     else:
       return False
 
+def query_helper(dict_to_insert):
+  placeholders =  ', '.join(['%s'] * len(dict_to_insert))
+  columns = ", ".join(dict_to_insert.keys())
+  return (placeholders, columns)
+
 def insert_parsed_users(connection, cursor, parsed_users: list[dict]):
   if len(parsed_users) == 0:
     return
   else:
-    placeholders = ', '.join(['%s'] * len(parsed_users[0]))
-    columns = ", ".join(parsed_users[0].keys())
+    placeholders, columns = query_helper(parsed_users[0])
     sql = f"INSERT IGNORE INTO LichessPlayers ({columns}) VALUES ({placeholders})"
 
     parsed_users_list = list(map(lambda dict: list(dict.values()), parsed_users))
     cursor.executemany(sql, parsed_users_list)
     connection.commit()
+
+def insert_parsed_game(connection, cursor, parsed_game):
+  placeholders, columns = query_helper(parsed_game)
+  sql = f"INSERT IGNORE INTO LichessGames ({columns}) VALUES ({placeholders})"
+  
+  cursor.execute(sql, list(parsed_game.values()))
+  connection.commit()
 
 # Insert all users first (about 200k)
 # Later we will insert a sample of games for each user (maybe 10-100)
@@ -179,6 +190,27 @@ def export_lichess_users(pgn_path, connection, start_count=0, quantity=None):
     if count % 1000 == 0:
       print("PGNs read:", count)
 
+# if you do quantity=10k, then next time you run, start count should be about 10k
+def export_lichess_games(pgn_path, connection, start_count=0, quantity=None):
+  pgn = open(pgn_path)
+  game = chess.pgn.read_game(pgn)
+  count = 0
+
+  cursor = connection.cursor()
+
+  while game != None and (quantity == None or count < quantity):
+    if count < start_count:
+      chess.pgn.skip_game(pgn)
+      count = count + 1
+      continue
+    parsed_game_dict = parse_lichess_game(game)
+    insert_parsed_game(connection, cursor, parsed_game_dict)
+    # iterate
+    game = chess.pgn.read_game(pgn)
+    count = count + 1
+    if count % 1000 == 0:
+      print("PGNs read:", count)
+
 # Connect to db
 config = dotenv_values(".env")
 host = config["DB_HOST"]
@@ -192,7 +224,8 @@ connection = pymysql.connect(host=host,
                              database=database,
                              port=3306)
 
-test_parse_lichess_game()
+# test_parse_lichess_game()
 # export_lichess_users(LICHESS_PGN_PATH, connection, 30000)
+export_lichess_games(LICHESS_PGN_PATH, connection, 100, 30000)
 
 connection.close()
