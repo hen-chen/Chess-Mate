@@ -90,8 +90,8 @@ def parse_lichess_game(game):
     res["id"] = site.partition("https://lichess.org/")[2]
     if not res["id"]:
       return None
-    res["date"] = headers.get("Date")
-    res["time"] = headers.get("Time")
+    res["date"] = headers.get("UTCDate", headers.get("Date"))
+    res["time"] = headers.get("UTCTime")
     res["timeControl"] = headers.get("TimeControl")
     res["eco"] = headers.get("ECO")
     res["whiteId"] = headers.get("White", "").lower()
@@ -226,6 +226,6 @@ connection = pymysql.connect(host=host,
 
 # test_parse_lichess_game()
 # export_lichess_users(LICHESS_PGN_PATH, connection, 30000)
-export_lichess_games(LICHESS_PGN_PATH, connection, 100, 30000)
+export_lichess_games(LICHESS_PGN_PATH, connection, 0, 30000)
 
 connection.close()
