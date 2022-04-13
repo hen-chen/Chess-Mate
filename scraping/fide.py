@@ -3,6 +3,7 @@ from getfide import get_fide_id, get_fide_page
 import requests
 import json
 import country_converter
+from lichess import query_helper
 
 FIDE_SCRAPER_HOST = "http://localhost:3000"
 cc = country_converter.CountryConverter()
@@ -38,7 +39,7 @@ def scrape_fide_profile(fide_id):
   if res.ok:
     return res.json()
   else:
-    print("Fide scraper did not return ok", res.content)
+    print("Fide scraper did not return ok", res.content, fide_id)
     return None
 
 def parse_title(raw_title):
@@ -73,13 +74,13 @@ def parse_raw_fide_data(fide_id, exp_name, raw_data):
   player = {}
   raw_name = raw_data.get("name", "")
   if raw_name.strip() != exp_name.strip():
-    return None
+    return (None, None)
   if not fide_id:
-    return None
+    return (None, None)
   player["id"] = fide_id
   tokens = [s.strip() for s in raw_name.split(",")]
   if len(tokens) < 2:
-    return None
+    return (None, None)
   player["firstName"] = tokens[1] # name format is last, first
   player["lastName"] = tokens[0]
   conv = cc.convert(raw_data.get("federation", "").strip(), to='ISO2')
@@ -126,34 +127,60 @@ def parse_raw_fide_data(fide_id, exp_name, raw_data):
 
   return (player, history)
 
+def insert_fide_player(connection, player):
+  cursor = connection.cursor()
+  placeholders, columns = query_helper(player)
+  sql = f"INSERT IGNORE INTO FidePlayers ({columns}) VALUES ({placeholders})"
+  cursor.execute(sql, list(player.values()))
+  connection.commit()
+
+def insert_fide_rating_hist(connection, history: list[dict]):
+  if len(history) == 0:
+    return
+  else:
+    cursor = connection.cursor()
+    placeholders, columns = query_helper(history[0])
+    sql = f"INSERT IGNORE INTO FideHistory ({columns}) VALUES ({placeholders})"
+
+    parsed_users_list = list(map(lambda dict: list(dict.values()), history))
+    cursor.executemany(sql, parsed_users_list)
+    connection.commit()
+
 async def export_fide(pgn_path, connection, start_count=0, quantity=None):
-  test_data = json.load(open("./test/testFide2.json"))
-  print(parse_raw_fide_data("2615657", "Carlsen, Magnus", test_data))
-  # pgn = open(pgn_path)
-  # headers = chess.pgn.read_headers(pgn)
-  # count = 0
+  pgn = open(pgn_path)
+  headers = chess.pgn.read_headers(pgn)
+  count = 0
 
-  # page = await get_fide_page()
+  page = await get_fide_page()
 
-  # while headers != None and (quantity == None or count < quantity):
-  #   if count < start_count:
-  #     chess.pgn.skip_game(pgn)
-  #     count = count + 1
-  #     continue
-  #   white = headers.get("White")
-  #   black = headers.get("Black")
-  #   player_names = [white, black]
-  #   if should_fetch_players(headers):
-  #     for player_name in player_names:
-  #       try:
-  #         fide_id = get_fide_id(page, player_name)
-  #         if player_name:
-  #           raw_data = scrape_fide_profile(fide_id)
-
-  #       except Exception as e:
-  #         print("Error with puppeteer, restarting browser:", e)
-  #         page = await get_fide_page()
-
-  # # iter
-  # headers = chess.pgn.read_game(pgn)
-  # count = count + 1
+  while headers != None and (quantity == None or count < quantity):
+    if count < start_count:
+      chess.pgn.skip_game(pgn)
+      count = count + 1
+      continue
+    white = headers.get("White")
+    black = headers.get("Black")
+    player_names = [white, black]
+    if should_fetch_players(headers):
+      for player_name in player_names:
+        try:
+          fide_id = await get_fide_id(page, player_name)
+          try:
+            if player_name:
+              raw_data = scrape_fide_profile(fide_id)
+              (parsed_player, parsed_hist) = parse_raw_fide_data(fide_id, player_name, raw_data)
+              if parsed_player:
+                insert_fide_player(connection, parsed_player)
+              if parsed_hist:
+                insert_fide_rating_hist(connection, parsed_hist)
+          except Exception as e:
+            # print("Problem with scraping/db", e)
+            continue
+        except Exception as e:
+          print("Error with puppeteer, restarting browser:", e)
+          page = await get_fide_page()
+    # iter
+    headers = chess.pgn.read_headers(pgn)
+    count = count + 1
+    if count % 1000 == 0:
+      print("PGN Count:", count)

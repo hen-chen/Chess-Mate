@@ -25,7 +25,7 @@ connection = pymysql.connect(host=host,
 # export_lichess_users(LICHESS_PGN_PATH, connection, 30000)
 # export_lichess_games(LICHESS_PGN_PATH, connection, 0, 30000)
 asyncio.get_event_loop().run_until_complete(
-  export_fide(OTB_PGN_PATH, connection)
+  export_fide(OTB_PGN_PATH, connection, 0, 10)
 )
 
 connection.close()

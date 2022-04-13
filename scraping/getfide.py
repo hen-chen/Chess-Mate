@@ -4,7 +4,7 @@ from pyppeteer import launch
 FIDE_URL = 'https://ratings.fide.com/'
 
 async def get_fide_page():
-  browser = await launch({"headless": False})
+  browser = await launch()
   page = await browser.newPage()
   await page.goto(FIDE_URL)
   return page
