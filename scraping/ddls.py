@@ -77,9 +77,9 @@ CREATE TABLE FidePlayers(
     rapidRating INT,
     blitzRating INT,
     worldRankAllPlayers INT,
-    worldRankActivePlayers INT,
+    worldRankActivePlayers INT, # 0 means not active
     nationalRankAllPlayers INT,
-    nationalRankActivePlayers INT,
+    nationalRankActivePlayers INT, # 0 means not active
     PRIMARY KEY (id)
 )
 """
@@ -102,9 +102,9 @@ CREATE TABLE FideGames(
     date VARCHAR(10),
     time VARCHAR(8),
     eco VARCHAR(4),
-    whiteId VARCHAR(8),
+    whiteId VARCHAR(8) NOT NULL,
     whiteRating INT,
-    blackId VARCHAR(8),
+    blackId VARCHAR(8) NOT NULL,
     blackRating INT,
     result enum('1-0', '1/2-1/2', '0-1'),
     pgn VARCHAR(10000),

@@ -1,8 +1,8 @@
 import pymysql
 from dotenv import dotenv_values
-from getfide import get_fide_ids
 from lichess import export_lichess_games, export_lichess_users, test_parse_lichess_game
-from fide import export_fide_players
+from fide import export_fide
+import asyncio
 
 # Replace
 OTB_PGN_PATH = "../../proj/canada_20220401.pgn"
@@ -24,6 +24,8 @@ connection = pymysql.connect(host=host,
 # test_parse_lichess_game()
 # export_lichess_users(LICHESS_PGN_PATH, connection, 30000)
 # export_lichess_games(LICHESS_PGN_PATH, connection, 0, 30000)
-export_fide_players(OTB_PGN_PATH, connection)
+asyncio.get_event_loop().run_until_complete(
+  export_fide(OTB_PGN_PATH, connection)
+)
 
 connection.close()
