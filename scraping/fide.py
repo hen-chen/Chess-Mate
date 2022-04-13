@@ -127,8 +127,8 @@ def parse_raw_fide_data(fide_id, exp_name, raw_data):
   return (player, history)
 
 async def export_fide(pgn_path, connection, start_count=0, quantity=None):
-  test_data = json.load(open("./test/testFide.json"))
-  print(parse_raw_fide_data("2615657", "Wang, Constance", test_data))
+  test_data = json.load(open("./test/testFide2.json"))
+  print(parse_raw_fide_data("2615657", "Carlsen, Magnus", test_data))
   # pgn = open(pgn_path)
   # headers = chess.pgn.read_headers(pgn)
   # count = 0

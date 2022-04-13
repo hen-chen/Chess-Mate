@@ -1,0 +1,1708 @@
+{
+  "name": "Carlsen, Magnus ",
+  "federation": "Norway",
+  "birth_year": 1990,
+  "sex": "Male",
+  "title": "Grandmaster",
+  "standard_elo": "2864",
+  "rapid_elo": "2847",
+  "blitz_elo": "2832",
+  "world_rank_all_players": 1,
+  "world_rank_active_players": 1,
+  "national_rank_all_players": 1,
+  "national_rank_active_players": 1,
+  "continental_rank_all_players": 1,
+  "continental_rank_active_players": 1,
+  "history": [
+    {
+      "date": "2022-Apr",
+      "numeric_date": 202204,
+      "standard": "2864",
+      "num_standard_games": "0",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2832",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2022-Mar",
+      "numeric_date": 202203,
+      "standard": "2864",
+      "num_standard_games": "13",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2832",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2022-Feb",
+      "numeric_date": 202202,
+      "standard": "2865",
+      "num_standard_games": "0",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2832",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2022-Jan",
+      "numeric_date": 202201,
+      "standard": "2865",
+      "num_standard_games": "11",
+      "rapid": "2847",
+      "num_rapid_games": "13",
+      "blitz": "2832",
+      "num_blitz_games": "21"
+    },
+    {
+      "date": "2021-Dec",
+      "numeric_date": 202112,
+      "standard": "2856",
+      "num_standard_games": "1",
+      "rapid": "2842",
+      "num_rapid_games": "0",
+      "blitz": "2892",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Nov",
+      "numeric_date": 202111,
+      "standard": "2855",
+      "num_standard_games": "0",
+      "rapid": "2842",
+      "num_rapid_games": "0",
+      "blitz": "2892",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Oct",
+      "numeric_date": 202110,
+      "standard": "2855",
+      "num_standard_games": "13",
+      "rapid": "2842",
+      "num_rapid_games": "0",
+      "blitz": "2892",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Sep",
+      "numeric_date": 202109,
+      "standard": "2855",
+      "num_standard_games": "14",
+      "rapid": "2842",
+      "num_rapid_games": "8",
+      "blitz": "2892",
+      "num_blitz_games": "2"
+    },
+    {
+      "date": "2021-Aug",
+      "numeric_date": 202108,
+      "standard": "2847",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Jul",
+      "numeric_date": 202107,
+      "standard": "2847",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Jun",
+      "numeric_date": 202106,
+      "standard": "2847",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-May",
+      "numeric_date": 202105,
+      "standard": "2847",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Apr",
+      "numeric_date": 202104,
+      "standard": "2847",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Mar",
+      "numeric_date": 202103,
+      "standard": "2847",
+      "num_standard_games": "13",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Feb",
+      "numeric_date": 202102,
+      "standard": "2862",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2021-Jan",
+      "numeric_date": 202101,
+      "standard": "2862",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Dec",
+      "numeric_date": 202012,
+      "standard": "2862",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Nov",
+      "numeric_date": 202011,
+      "standard": "2862",
+      "num_standard_games": "10",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Oct",
+      "numeric_date": 202010,
+      "standard": "2863",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Sep",
+      "numeric_date": 202009,
+      "standard": "2863",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Aug",
+      "numeric_date": 202008,
+      "standard": "2863",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Jul",
+      "numeric_date": 202007,
+      "standard": "2863",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Jun",
+      "numeric_date": 202006,
+      "standard": "2863",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-May",
+      "numeric_date": 202005,
+      "standard": "2863",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Apr",
+      "numeric_date": 202004,
+      "standard": "2863",
+      "num_standard_games": "1",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Mar",
+      "numeric_date": 202003,
+      "standard": "2862",
+      "num_standard_games": "0",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Feb",
+      "numeric_date": 202002,
+      "standard": "2862",
+      "num_standard_games": "13",
+      "rapid": "2881",
+      "num_rapid_games": "0",
+      "blitz": "2886",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2020-Jan",
+      "numeric_date": 202001,
+      "standard": "2872",
+      "num_standard_games": "4",
+      "rapid": "2881",
+      "num_rapid_games": "21",
+      "blitz": "2886",
+      "num_blitz_games": "31"
+    },
+    {
+      "date": "2019-Dec",
+      "numeric_date": 201912,
+      "standard": "2872",
+      "num_standard_games": "2",
+      "rapid": "2886",
+      "num_rapid_games": "9",
+      "blitz": "2865",
+      "num_blitz_games": "18"
+    },
+    {
+      "date": "2019-Nov",
+      "numeric_date": 201911,
+      "standard": "2870",
+      "num_standard_games": "11",
+      "rapid": "2849",
+      "num_rapid_games": "0",
+      "blitz": "2828",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2019-Oct",
+      "numeric_date": 201910,
+      "standard": "2876",
+      "num_standard_games": "0",
+      "rapid": "2849",
+      "num_rapid_games": "0",
+      "blitz": "2828",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2019-Sep",
+      "numeric_date": 201909,
+      "standard": "2876",
+      "num_standard_games": "11",
+      "rapid": "2849",
+      "num_rapid_games": "11",
+      "blitz": "2828",
+      "num_blitz_games": "20"
+    },
+    {
+      "date": "2019-Aug",
+      "numeric_date": 201908,
+      "standard": "2882",
+      "num_standard_games": "11",
+      "rapid": "2895",
+      "num_rapid_games": "0",
+      "blitz": "2920",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2019-Jul",
+      "numeric_date": 201907,
+      "standard": "2872",
+      "num_standard_games": "9",
+      "rapid": "2895",
+      "num_rapid_games": "0",
+      "blitz": "2920",
+      "num_blitz_games": "9"
+    },
+    {
+      "date": "2019-Jun",
+      "numeric_date": 201906,
+      "standard": "2875",
+      "num_standard_games": "9",
+      "rapid": "2895",
+      "num_rapid_games": "15",
+      "blitz": "2923",
+      "num_blitz_games": "18"
+    },
+    {
+      "date": "2019-May",
+      "numeric_date": 201905,
+      "standard": "2861",
+      "num_standard_games": "9",
+      "rapid": "2869",
+      "num_rapid_games": "0",
+      "blitz": "2954",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2019-Apr",
+      "numeric_date": 201904,
+      "standard": "2845",
+      "num_standard_games": "0",
+      "rapid": "2869",
+      "num_rapid_games": "0",
+      "blitz": "2954",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2019-Mar",
+      "numeric_date": 201903,
+      "standard": "2845",
+      "num_standard_games": "0",
+      "rapid": "2869",
+      "num_rapid_games": "0",
+      "blitz": "2954",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2019-Feb",
+      "numeric_date": 201902,
+      "standard": "2845",
+      "num_standard_games": "13",
+      "rapid": "2869",
+      "num_rapid_games": "0",
+      "blitz": "2954",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2019-Jan",
+      "numeric_date": 201901,
+      "standard": "2835",
+      "num_standard_games": "0",
+      "rapid": "2869",
+      "num_rapid_games": "15",
+      "blitz": "2954",
+      "num_blitz_games": "21"
+    },
+    {
+      "date": "2018-Dec",
+      "numeric_date": 201812,
+      "standard": "2835",
+      "num_standard_games": "12",
+      "rapid": "2903",
+      "num_rapid_games": "3",
+      "blitz": "2939",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Nov",
+      "numeric_date": 201811,
+      "standard": "2835",
+      "num_standard_games": "6",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2939",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Oct",
+      "numeric_date": 201810,
+      "standard": "2839",
+      "num_standard_games": "0",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2939",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Sep",
+      "numeric_date": 201809,
+      "standard": "2839",
+      "num_standard_games": "19",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2939",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Aug",
+      "numeric_date": 201808,
+      "standard": "2842",
+      "num_standard_games": "0",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2939",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Jul",
+      "numeric_date": 201807,
+      "standard": "2842",
+      "num_standard_games": "8",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2939",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Jun",
+      "numeric_date": 201806,
+      "standard": "2843",
+      "num_standard_games": "0",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2939",
+      "num_blitz_games": "9"
+    },
+    {
+      "date": "2018-May",
+      "numeric_date": 201805,
+      "standard": "2843",
+      "num_standard_games": "18",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2965",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Apr",
+      "numeric_date": 201804,
+      "standard": "2843",
+      "num_standard_games": "0",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2965",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Mar",
+      "numeric_date": 201803,
+      "standard": "2843",
+      "num_standard_games": "0",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2965",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Feb",
+      "numeric_date": 201802,
+      "standard": "2843",
+      "num_standard_games": "13",
+      "rapid": "2880",
+      "num_rapid_games": "0",
+      "blitz": "2965",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2018-Jan",
+      "numeric_date": 201801,
+      "standard": "2834",
+      "num_standard_games": "9",
+      "rapid": "2880",
+      "num_rapid_games": "15",
+      "blitz": "2965",
+      "num_blitz_games": "21"
+    },
+    {
+      "date": "2017-Dec",
+      "numeric_date": 201712,
+      "standard": "2837",
+      "num_standard_games": "0",
+      "rapid": "2908",
+      "num_rapid_games": "9",
+      "blitz": "2986",
+      "num_blitz_games": "16"
+    },
+    {
+      "date": "2017-Nov",
+      "numeric_date": 201711,
+      "standard": "2837",
+      "num_standard_games": "9",
+      "rapid": "2909",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2017-Oct",
+      "numeric_date": 201710,
+      "standard": "2826",
+      "num_standard_games": "6",
+      "rapid": "2909",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2017-Sep",
+      "numeric_date": 201709,
+      "standard": "2827",
+      "num_standard_games": "9",
+      "rapid": "2909",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2017-Aug",
+      "numeric_date": 201708,
+      "standard": "2822",
+      "num_standard_games": "0",
+      "rapid": "2909",
+      "num_rapid_games": "9",
+      "blitz": "2948",
+      "num_blitz_games": "18"
+    },
+    {
+      "date": "2017-Jul",
+      "numeric_date": 201707,
+      "standard": "2822",
+      "num_standard_games": "9",
+      "rapid": "2919",
+      "num_rapid_games": "11",
+      "blitz": "2899",
+      "num_blitz_games": "27"
+    },
+    {
+      "date": "2017-Jun",
+      "numeric_date": 201706,
+      "standard": "2832",
+      "num_standard_games": "0",
+      "rapid": "2896",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2017-May",
+      "numeric_date": 201705,
+      "standard": "2832",
+      "num_standard_games": "7",
+      "rapid": "2896",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2017-Apr",
+      "numeric_date": 201704,
+      "standard": "2838",
+      "num_standard_games": "0",
+      "rapid": "2896",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2017-Mar",
+      "numeric_date": 201703,
+      "standard": "2838",
+      "num_standard_games": "0",
+      "rapid": "2896",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2017-Feb",
+      "numeric_date": 201702,
+      "standard": "2838",
+      "num_standard_games": "13",
+      "rapid": "2896",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2017-Jan",
+      "numeric_date": 201701,
+      "standard": "2840",
+      "num_standard_games": "0",
+      "rapid": "2896",
+      "num_rapid_games": "15",
+      "blitz": "2914",
+      "num_blitz_games": "21"
+    },
+    {
+      "date": "2016-Dec",
+      "numeric_date": 201612,
+      "standard": "2840",
+      "num_standard_games": "12",
+      "rapid": "2906",
+      "num_rapid_games": "4",
+      "blitz": "2873",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-Nov",
+      "numeric_date": 201611,
+      "standard": "2853",
+      "num_standard_games": "0",
+      "rapid": "2894",
+      "num_rapid_games": "0",
+      "blitz": "2873",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-Oct",
+      "numeric_date": 201610,
+      "standard": "2853",
+      "num_standard_games": "10",
+      "rapid": "2894",
+      "num_rapid_games": "0",
+      "blitz": "2873",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-Sep",
+      "numeric_date": 201609,
+      "standard": "2857",
+      "num_standard_games": "0",
+      "rapid": "2894",
+      "num_rapid_games": "0",
+      "blitz": "2873",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-Aug",
+      "numeric_date": 201608,
+      "standard": "2857",
+      "num_standard_games": "10",
+      "rapid": "2894",
+      "num_rapid_games": "0",
+      "blitz": "2873",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-Jul",
+      "numeric_date": 201607,
+      "standard": "2855",
+      "num_standard_games": "0",
+      "rapid": "2894",
+      "num_rapid_games": "18",
+      "blitz": "2873",
+      "num_blitz_games": "36"
+    },
+    {
+      "date": "2016-Jun",
+      "numeric_date": 201606,
+      "standard": "2855",
+      "num_standard_games": "9",
+      "rapid": "2878",
+      "num_rapid_games": "0",
+      "blitz": "2915",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-May",
+      "numeric_date": 201605,
+      "standard": "2851",
+      "num_standard_games": "0",
+      "rapid": "2878",
+      "num_rapid_games": "0",
+      "blitz": "2915",
+      "num_blitz_games": "9"
+    },
+    {
+      "date": "2016-Apr",
+      "numeric_date": 201604,
+      "standard": "2851",
+      "num_standard_games": "0",
+      "rapid": "2878",
+      "num_rapid_games": "0",
+      "blitz": "2890",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-Mar",
+      "numeric_date": 201603,
+      "standard": "2851",
+      "num_standard_games": "13",
+      "rapid": "2878",
+      "num_rapid_games": "0",
+      "blitz": "2890",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-Feb",
+      "numeric_date": 201602,
+      "standard": "2844",
+      "num_standard_games": "0",
+      "rapid": "2878",
+      "num_rapid_games": "0",
+      "blitz": "2890",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2016-Jan",
+      "numeric_date": 201601,
+      "standard": "2844",
+      "num_standard_games": "18",
+      "rapid": "2878",
+      "num_rapid_games": "2",
+      "blitz": "2890",
+      "num_blitz_games": "2"
+    },
+    {
+      "date": "2015-Dec",
+      "numeric_date": 201512,
+      "standard": "2834",
+      "num_standard_games": "7",
+      "rapid": "2873",
+      "num_rapid_games": "0",
+      "blitz": "2878",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2015-Nov",
+      "numeric_date": 201511,
+      "standard": "2850",
+      "num_standard_games": "0",
+      "rapid": "2873",
+      "num_rapid_games": "15",
+      "blitz": "2878",
+      "num_blitz_games": "21"
+    },
+    {
+      "date": "2015-Oct",
+      "numeric_date": 201510,
+      "standard": "2850",
+      "num_standard_games": "9",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2015-Sep",
+      "numeric_date": 201509,
+      "standard": "2853",
+      "num_standard_games": "0",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2015-Aug",
+      "numeric_date": 201508,
+      "standard": "2853",
+      "num_standard_games": "0",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2015-Jul",
+      "numeric_date": 201507,
+      "standard": "2853",
+      "num_standard_games": "9",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2914",
+      "num_blitz_games": "9"
+    },
+    {
+      "date": "2015-Jun",
+      "numeric_date": 201506,
+      "standard": "2876",
+      "num_standard_games": "0",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2933",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2015-May",
+      "numeric_date": 201505,
+      "standard": "2876",
+      "num_standard_games": "9",
+      "rapid": "2847",
+      "num_rapid_games": "0",
+      "blitz": "2933",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2015-Apr",
+      "numeric_date": 201504,
+      "standard": "2863",
+      "num_standard_games": "0",
+      "rapid": "2847",
+      "num_rapid_games": "2",
+      "blitz": "2933",
+      "num_blitz_games": "2"
+    },
+    {
+      "date": "2015-Mar",
+      "numeric_date": 201503,
+      "standard": "2863",
+      "num_standard_games": "7",
+      "rapid": "2855",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2015-Feb",
+      "numeric_date": 201502,
+      "standard": "2865",
+      "num_standard_games": "13",
+      "rapid": "2855",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2015-Jan",
+      "numeric_date": 201501,
+      "standard": "2862",
+      "num_standard_games": "0",
+      "rapid": "2855",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Dec",
+      "numeric_date": 201412,
+      "standard": "2862",
+      "num_standard_games": "11",
+      "rapid": "2855",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Nov",
+      "numeric_date": 201411,
+      "standard": "2863",
+      "num_standard_games": "0",
+      "rapid": "2855",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Oct",
+      "numeric_date": 201410,
+      "standard": "2863",
+      "num_standard_games": "10",
+      "rapid": "2855",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Sep",
+      "numeric_date": 201409,
+      "standard": "2870",
+      "num_standard_games": "9",
+      "rapid": "2855",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Aug",
+      "numeric_date": 201408,
+      "standard": "2877",
+      "num_standard_games": "0",
+      "rapid": "2855",
+      "num_rapid_games": "0",
+      "blitz": "2948",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Jul",
+      "numeric_date": 201407,
+      "standard": "2877",
+      "num_standard_games": "9",
+      "rapid": "2855",
+      "num_rapid_games": "15",
+      "blitz": "2948",
+      "num_blitz_games": "30"
+    },
+    {
+      "date": "2014-Jun",
+      "numeric_date": 201406,
+      "standard": "2881",
+      "num_standard_games": "10",
+      "rapid": "2827",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-May",
+      "numeric_date": 201405,
+      "standard": "2882",
+      "num_standard_games": "1",
+      "rapid": "2827",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Apr",
+      "numeric_date": 201404,
+      "standard": "2881",
+      "num_standard_games": "0",
+      "rapid": "2827",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Mar",
+      "numeric_date": 201403,
+      "standard": "2881",
+      "num_standard_games": "5",
+      "rapid": "2827",
+      "num_rapid_games": "5",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Feb",
+      "numeric_date": 201402,
+      "standard": "2872",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2014-Jan",
+      "numeric_date": 201401,
+      "standard": "2872",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Dec",
+      "numeric_date": 201312,
+      "standard": "2872",
+      "num_standard_games": "10",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Nov",
+      "numeric_date": 201311,
+      "standard": "2870",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Oct",
+      "numeric_date": 201310,
+      "standard": "2870",
+      "num_standard_games": "6",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Sep",
+      "numeric_date": 201309,
+      "standard": "2862",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Aug",
+      "numeric_date": 201308,
+      "standard": "2862",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Jul",
+      "numeric_date": 201307,
+      "standard": "2862",
+      "num_standard_games": "9",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "9"
+    },
+    {
+      "date": "2013-Jun",
+      "numeric_date": 201306,
+      "standard": "2864",
+      "num_standard_games": "9",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-May",
+      "numeric_date": 201305,
+      "standard": "2868",
+      "num_standard_games": "14",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Apr",
+      "numeric_date": 201304,
+      "standard": "2872",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Mar",
+      "numeric_date": 201303,
+      "standard": "2872",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Feb",
+      "numeric_date": 201302,
+      "standard": "2872",
+      "num_standard_games": "13",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2013-Jan",
+      "numeric_date": 201301,
+      "standard": "2861",
+      "num_standard_games": "8",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2012-Dec",
+      "numeric_date": 201212,
+      "standard": "2848",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2012-Nov",
+      "numeric_date": 201211,
+      "standard": "2848",
+      "num_standard_games": "10",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2012-Oct",
+      "numeric_date": 201210,
+      "standard": "2843",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2012-Sep",
+      "numeric_date": 201209,
+      "standard": "2843",
+      "num_standard_games": "10",
+      "rapid": "2845",
+      "num_rapid_games": "0",
+      "blitz": "2856",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2012-Aug",
+      "numeric_date": 201208,
+      "standard": "2837",
+      "num_standard_games": "0",
+      "rapid": "2845",
+      "num_rapid_games": "15",
+      "blitz": "2856",
+      "num_blitz_games": "39"
+    },
+    {
+      "date": "2012-Jul",
+      "numeric_date": 201207,
+      "standard": "2837",
+      "num_standard_games": "9",
+      "rapid": "2837",
+      "num_rapid_games": "0",
+      "blitz": "2837",
+      "num_blitz_games": "0"
+    },
+    {
+      "date": "2012-May",
+      "numeric_date": 201205,
+      "standard": "2835",
+      "num_standard_games": "0",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2012-Mar",
+      "numeric_date": 201203,
+      "standard": "2835",
+      "num_standard_games": "13",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2012-Jan",
+      "numeric_date": 201201,
+      "standard": "2835",
+      "num_standard_games": "17",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2011-Nov",
+      "numeric_date": 201111,
+      "standard": "2826",
+      "num_standard_games": "10",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2011-Sep",
+      "numeric_date": 201109,
+      "standard": "2823",
+      "num_standard_games": "10",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2011-Jul",
+      "numeric_date": 201107,
+      "standard": "2821",
+      "num_standard_games": "10",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2011-May",
+      "numeric_date": 201105,
+      "standard": "2815",
+      "num_standard_games": "0",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2011-Mar",
+      "numeric_date": 201103,
+      "standard": "2815",
+      "num_standard_games": "13",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2011-Jan",
+      "numeric_date": 201101,
+      "standard": "2814",
+      "num_standard_games": "17",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2010-Nov",
+      "numeric_date": 201011,
+      "standard": "2802",
+      "num_standard_games": "14",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2010-Sep",
+      "numeric_date": 201009,
+      "standard": "2826",
+      "num_standard_games": "0",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2010-Jul",
+      "numeric_date": 201007,
+      "standard": "2826",
+      "num_standard_games": "10",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2010-May",
+      "numeric_date": 201005,
+      "standard": "2813",
+      "num_standard_games": "0",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2010-Mar",
+      "numeric_date": 201003,
+      "standard": "2813",
+      "num_standard_games": "13",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2010-Jan",
+      "numeric_date": 201001,
+      "standard": "2810",
+      "num_standard_games": "16",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2009-Nov",
+      "numeric_date": 200911,
+      "standard": "2801",
+      "num_standard_games": "10",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2009-Sep",
+      "numeric_date": 200909,
+      "standard": "2772",
+      "num_standard_games": "10",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2009-Jul",
+      "numeric_date": 200907,
+      "standard": "2772",
+      "num_standard_games": "12",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2009-Apr",
+      "numeric_date": 200904,
+      "standard": "2770",
+      "num_standard_games": "27",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2009-Jan",
+      "numeric_date": 200901,
+      "standard": "2776",
+      "num_standard_games": "17",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2008-Oct",
+      "numeric_date": 200810,
+      "standard": "2786",
+      "num_standard_games": "31",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2008-Jul",
+      "numeric_date": 200807,
+      "standard": "2775",
+      "num_standard_games": "16",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2008-Apr",
+      "numeric_date": 200804,
+      "standard": "2765",
+      "num_standard_games": "27",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2008-Jan",
+      "numeric_date": 200801,
+      "standard": "2733",
+      "num_standard_games": "37",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2007-Oct",
+      "numeric_date": 200710,
+      "standard": "2714",
+      "num_standard_games": "25",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2007-Jul",
+      "numeric_date": 200707,
+      "standard": "2710",
+      "num_standard_games": "19",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2007-Apr",
+      "numeric_date": 200704,
+      "standard": "2693",
+      "num_standard_games": "27",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2007-Jan",
+      "numeric_date": 200701,
+      "standard": "2690",
+      "num_standard_games": "11",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2006-Oct",
+      "numeric_date": 200610,
+      "standard": "2698",
+      "num_standard_games": "46",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2006-Jul",
+      "numeric_date": 200607,
+      "standard": "2675",
+      "num_standard_games": "27",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2006-Apr",
+      "numeric_date": 200604,
+      "standard": "2646",
+      "num_standard_games": "13",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2006-Jan",
+      "numeric_date": 200601,
+      "standard": "2625",
+      "num_standard_games": "40",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2005-Oct",
+      "numeric_date": 200510,
+      "standard": "2570",
+      "num_standard_games": "32",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2005-Jul",
+      "numeric_date": 200507,
+      "standard": "2528",
+      "num_standard_games": "15",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2005-Apr",
+      "numeric_date": 200504,
+      "standard": "2548",
+      "num_standard_games": "22",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2005-Jan",
+      "numeric_date": 200501,
+      "standard": "2553",
+      "num_standard_games": "35",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2004-Oct",
+      "numeric_date": 200410,
+      "standard": "2581",
+      "num_standard_games": "23",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2004-Jul",
+      "numeric_date": 200407,
+      "standard": "2567",
+      "num_standard_games": "32",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2004-Apr",
+      "numeric_date": 200404,
+      "standard": "2552",
+      "num_standard_games": "35",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2004-Jan",
+      "numeric_date": 200401,
+      "standard": "2484",
+      "num_standard_games": "45",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2003-Oct",
+      "numeric_date": 200310,
+      "standard": "2450",
+      "num_standard_games": "36",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2003-Jul",
+      "numeric_date": 200307,
+      "standard": "2385",
+      "num_standard_games": "25",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2003-Apr",
+      "numeric_date": 200304,
+      "standard": "2356",
+      "num_standard_games": "19",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2003-Jan",
+      "numeric_date": 200301,
+      "standard": "2279",
+      "num_standard_games": "12",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2002-Oct",
+      "numeric_date": 200210,
+      "standard": "2250",
+      "num_standard_games": "33",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2002-Jul",
+      "numeric_date": 200207,
+      "standard": "2214",
+      "num_standard_games": "19",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2002-Apr",
+      "numeric_date": 200204,
+      "standard": "2163",
+      "num_standard_games": "14",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2002-Jan",
+      "numeric_date": 200201,
+      "standard": "2127",
+      "num_standard_games": "12",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2001-Oct",
+      "numeric_date": 200110,
+      "standard": "2072",
+      "num_standard_games": "19",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2001-Jul",
+      "numeric_date": 200107,
+      "standard": "2084",
+      "num_standard_games": "11",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    },
+    {
+      "date": "2001-Apr",
+      "numeric_date": 200104,
+      "standard": "2064",
+      "num_standard_games": "15",
+      "rapid": "",
+      "num_rapid_games": "",
+      "blitz": "",
+      "num_blitz_games": ""
+    }
+  ]
+}
