@@ -4,7 +4,7 @@ from pyppeteer import launch
 FIDE_URL = 'https://ratings.fide.com/'
 
 async def get_fide_ids(names: list[str]):
-  browser = await launch({"headless": False})
+  browser = await launch()
   page = await browser.newPage()
   await page.goto(FIDE_URL)
 
@@ -24,7 +24,7 @@ async def get_fide_ids(names: list[str]):
     if result_href:
       fide_id = result_href.partition("https://ratings.fide.com/profile/")[2]
       res.append(fide_id)
-      print(fide_id)
+  return res
 
 asyncio.get_event_loop().run_until_complete(
   get_fide_ids(["Wang, Constance", "Xu, Jeffrey", "Lin, Benjamin", "Wang, Annie"])
