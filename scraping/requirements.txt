@@ -6,3 +6,4 @@ python-dotenv
 black
 requests
 pyppeteer
+pycountry

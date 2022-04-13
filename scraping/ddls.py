@@ -33,6 +33,18 @@ CREATE TABLE LichessPlayers (
 )
 """
 
+createLichessRatingHistory = """
+CREATE TABLE LichessHistory(
+    lichessId VARCHAR(20) NOT NULL,
+    month INT NOT NULL,
+    year INT NOT NULL,
+    rating INT NOT NULL,
+    type enum('classical', 'rapid', 'blitz', 'bullet'),
+    FOREIGN KEY (lichessId) REFERENCES LichessPlayers(id),
+    PRIMARY KEY (lichessId, year, month, type)
+)
+"""
+
 createLichessGames = """
 CREATE TABLE LichessGames(
     id VARCHAR(8) NOT NULL,
@@ -54,7 +66,7 @@ CREATE TABLE LichessGames(
 
 createFidePlayer = """
 CREATE TABLE FidePlayers(
-    id VARCHAR(8), # fide id can be 7 or 8 char?
+    id VARCHAR(8) NOT NULL, # fide id can be 7 or 8 char?
     firstName VARCHAR(20),
     lastName VARCHAR(20),
     country VARCHAR(2),
@@ -69,6 +81,18 @@ CREATE TABLE FidePlayers(
     nationalRankAllPlayers INT,
     nationalRankActivePlayers INT,
     PRIMARY KEY (id)
+)
+"""
+
+createFideRatingHistory = """
+CREATE TABLE FideHistory(
+    fideId VARCHAR(8) NOT NULL,
+    month INT NOT NULL,
+    year INT NOT NULL,
+    rating INT NOT NULL,
+    type enum('classical', 'rapid', 'blitz'),
+    FOREIGN KEY (fideId) REFERENCES FidePlayers(id),
+    PRIMARY KEY (fideId, year, month, type)
 )
 """
 
