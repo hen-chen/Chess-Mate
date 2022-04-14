@@ -39,7 +39,7 @@ def scrape_fide_profile(fide_id):
   if res.ok:
     return res.json()
   else:
-    print("Fide scraper did not return ok", res.content, fide_id)
+    # print("Fide scraper did not return ok", res.content, fide_id)
     return None
 
 def parse_title(raw_title):
@@ -83,8 +83,11 @@ def parse_raw_fide_data(fide_id, exp_name, raw_data):
     return (None, None)
   player["firstName"] = tokens[1] # name format is last, first
   player["lastName"] = tokens[0]
-  conv = cc.convert(raw_data.get("federation", "").strip(), to='ISO2')
-  player["country"] = conv
+  # Parser doesn't parse this
+  if raw_data.get("federation") == "England":
+    player["country"] = 'UK'
+  else:
+    player["country"] = cc.convert(raw_data.get("federation", "").strip(), to='ISO2')
   player["birthYear"] = raw_data.get("birth_year")
   player["sex"] = parse_sex(raw_data.get("sex", ""))
   player["title"] = parse_title(raw_data.get("title"))
@@ -174,7 +177,7 @@ async def export_fide(pgn_path, connection, start_count=0, quantity=None):
               if parsed_hist:
                 insert_fide_rating_hist(connection, parsed_hist)
           except Exception as e:
-            # print("Problem with scraping/db", e)
+            # print("Did not scrape & put in db", e)
             continue
         except Exception as e:
           print("Error with puppeteer, restarting browser:", e)
@@ -182,5 +185,5 @@ async def export_fide(pgn_path, connection, start_count=0, quantity=None):
     # iter
     headers = chess.pgn.read_headers(pgn)
     count = count + 1
-    if count % 1000 == 0:
+    if count % 100 == 0:
       print("PGN Count:", count)
