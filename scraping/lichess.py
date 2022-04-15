@@ -26,6 +26,39 @@ def fetch_rating_hist(username):
   res = requests.get(f"https://lichess.org/api/user/{username}/rating-history")
   print(res.text)
 
+def fetch_rating_hist_new(username):
+  res = requests.get(f"https://lichess.org/api/user/{username}/rating-history")
+  res_map = dict()
+  res_json = res.json()
+
+  # iterate over types of games
+  for type in res_json:
+      name = type['name']
+      dates = type['points']
+      
+      # let highest elo be tuple[1] and lowest tuple[0]
+      year_to_tuple = dict()
+      for date in dates:
+          year = date[0]
+          elo = date[3]
+          
+          # update the highest or lowest elo per year
+          if year in year_to_tuple:
+              tup = year_to_tuple[year]
+              if elo > tup[1]:
+                  new_tup = (tup[0], elo)
+                  year_to_tuple[year] = new_tup
+              elif elo < tup[0]:
+                  new_tup = (elo, tup[1])
+                  year_to_tuple[year] = new_tup
+          else:
+              new_tup = (elo, elo)
+              year_to_tuple[year] = new_tup
+      
+      # put in our dictionary
+      res_map[name] = year_to_tuple
+  return res_map
+
 # parse user returned by lichess api into user dictionary matching LichessPlayers spec
 def parse_raw_user(raw_user):
   if raw_user.get("disabled") == True:

@@ -1,5 +1,4 @@
 pandas
-numpy
 chess
 pymysql
 python-dotenv
