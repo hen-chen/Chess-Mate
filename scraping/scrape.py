@@ -29,6 +29,6 @@ connection = pymysql.connect(host=host,
 
 # res = mock_fetch_rating_hist("penguingim1")
 # print(parse_rating_hist_response(res, "penguingim1"))
-export_lichess_hist(connection, offset=0)
+export_lichess_hist(connection, offset=1)
 
 connection.close()
