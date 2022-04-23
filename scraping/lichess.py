@@ -190,6 +190,11 @@ def insert_parsed_game(connection, cursor, parsed_game):
   cursor.execute(sql, list(parsed_game.values()))
   connection.commit()
 
+def insert_parsed_rating_hist(connection, cursor, parsed_hist):
+  sql = f"INSERT IGNORE INTO LichessHistory (lichessId, type, year, month, rating) VALUES (%s, %s, %s, %s, %s)"
+  cursor.executemany(sql, parsed_hist)
+  connection.commit()
+
 # Insert all users first (about 200k)
 # Later we will insert a sample of games for each user (maybe 10-100)
 # Since 90 million games is somewhat unfeasible...
@@ -253,5 +258,23 @@ def export_lichess_games(pgn_path, connection, start_count=0, quantity=None, inc
     if count % 1000 == 0:
       print("PGNs read:", count)
 
-def export_lichess_hist(users_list, connection):
+# skip for distributed scraping purposes
+# Constance - offset 0
+# Henry - offset 1
+# TODO: offset 2,3
+def export_lichess_hist(connection, offset=0):
   cursor = connection.cursor()
+  sql = "SELECT username FROM LichessPlayers"
+  cursor.execute(sql)
+
+  count = 0
+
+  for (username,) in cursor:
+    if count % 4 == offset:
+      json_res = fetch_rating_hist(username)
+      if json_res:
+        parsed_data = parse_rating_hist_response(json_res, username.lower()) # ids are lowercase
+        insert_parsed_rating_hist(connection, connection.cursor(), parsed_data)
+    count = count + 1
+    if count % 10000 == 0:
+      print(count)
