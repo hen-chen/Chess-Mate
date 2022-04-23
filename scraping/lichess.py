@@ -7,6 +7,9 @@ import chess.pgn
 def mock_fetch_lichess_info(usernames):
   return json.load(open("./test/testUsersRoute.json"))
 
+def mock_fetch_rating_hist(username):
+  return json.load(open("./test/testLichessRatingHist.json"))
+
 def fetch_lichess_info(usernames):
   payload=",".join(usernames)
   headers = {
@@ -24,40 +27,54 @@ def fetch_lichess_info(usernames):
 
 def fetch_rating_hist(username):
   res = requests.get(f"https://lichess.org/api/user/{username}/rating-history")
-  print(res.text)
+  if res.status_code == 429:
+    print(res.content)
+    print("rate limited - rating hist, waiting for 2 minutes")
+    time.sleep(120)
+  if res.ok:
+    return res.json()
 
-def fetch_rating_hist_new(username):
-  res = requests.get(f"https://lichess.org/api/user/{username}/rating-history")
-  res_map = dict()
-  res_json = res.json()
+def parse_history_type(name):
+  parsed_name = name.lower()
+  if parsed_name not in ["bullet", "blitz", "classical", "rapid"]:
+    return None
+  else:
+    return parsed_name
+
+def parse_rating_hist_response(res_json, lichess_id):
+  res = []
 
   # iterate over types of games
   for type in res_json:
-      name = type['name']
-      dates = type['points']
-      
-      # let highest elo be tuple[1] and lowest tuple[0]
-      year_to_tuple = dict()
-      for date in dates:
-          year = date[0]
-          elo = date[3]
-          
-          # update the highest or lowest elo per year
-          if year in year_to_tuple:
-              tup = year_to_tuple[year]
-              if elo > tup[1]:
-                  new_tup = (tup[0], elo)
-                  year_to_tuple[year] = new_tup
-              elif elo < tup[0]:
-                  new_tup = (elo, tup[1])
-                  year_to_tuple[year] = new_tup
-          else:
-              new_tup = (elo, elo)
-              year_to_tuple[year] = new_tup
-      
-      # put in our dictionary
-      res_map[name] = year_to_tuple
-  return res_map
+    # Map (year, month) -> highest rating
+    # adjust month to start with 1 instead of 0
+    year_month_dict = {}
+    type_name = type['name']
+
+    parsed_type = parse_history_type(type_name)
+    if parsed_type == None:
+      continue
+
+    dates = type['points']    
+
+    for date in dates:
+        year = date[0]
+        month = date[1] + 1; # lichess months be starting from 0...
+        elo = date[3]
+        
+        # update the highest or lowest elo per year
+        if (year, month) in year_month_dict:
+            curr_highest = year_month_dict[(year, month)]
+            if elo > curr_highest:
+              year_month_dict[(year, month)] = elo
+        else:
+            year_month_dict[(year, month)] = elo
+
+    # Parse map into datapoints 
+    for (year, month) in year_month_dict:
+      highest_elo = year_month_dict[(year, month)]
+      res.append([lichess_id, parsed_type, year, month, highest_elo])
+  return res
 
 # parse user returned by lichess api into user dictionary matching LichessPlayers spec
 def parse_raw_user(raw_user):
@@ -216,7 +233,7 @@ def export_lichess_users(pgn_path, connection, start_count=0, quantity=None):
       print("PGNs read:", count)
 
 # if you do quantity=10k, then next time you run, start count should be about 10k
-def export_lichess_games(pgn_path, connection, start_count=0, quantity=None):
+def export_lichess_games(pgn_path, connection, start_count=0, quantity=None, increment=1):
   pgn = open(pgn_path)
   game = chess.pgn.read_game(pgn)
   count = 0
@@ -224,7 +241,7 @@ def export_lichess_games(pgn_path, connection, start_count=0, quantity=None):
   cursor = connection.cursor()
 
   while game != None and (quantity == None or count < quantity):
-    if count < start_count:
+    if count < start_count or count % increment != 0:
       chess.pgn.skip_game(pgn)
       count = count + 1
       continue
@@ -235,3 +252,6 @@ def export_lichess_games(pgn_path, connection, start_count=0, quantity=None):
     count = count + 1
     if count % 1000 == 0:
       print("PGNs read:", count)
+
+def export_lichess_hist(users_list, connection):
+  cursor = connection.cursor()

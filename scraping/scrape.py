@@ -1,6 +1,6 @@
 import pymysql
 from dotenv import dotenv_values
-from lichess import export_lichess_games, export_lichess_users, test_parse_lichess_game
+from lichess import export_lichess_games, export_lichess_users, test_parse_lichess_game, parse_rating_hist_response, mock_fetch_rating_hist
 from fide import export_fide
 import asyncio
 
@@ -21,11 +21,13 @@ connection = pymysql.connect(host=host,
                              database=database,
                              port=3306)
 
-# test_parse_lichess_game()
-# export_lichess_users(LICHESS_PGN_PATH, connection, 30000)
-# export_lichess_games(LICHESS_PGN_PATH, connection, 0, 30000)
-asyncio.get_event_loop().run_until_complete(
-  export_fide(OTB_PGN_PATH, connection, 10000, None)
-)
+# # test_parse_lichess_game()
+export_lichess_games(LICHESS_PGN_PATH, connection, 181000, 601000, 100)
+# asyncio.get_event_loop().run_until_complete(
+#   export_fide(OTB_PGN_PATH, connection, 10000, None)
+# )
+
+# res = mock_fetch_rating_hist("penguingim1")
+# print(parse_rating_hist_response(res, "penguingim1"))
 
 connection.close()
