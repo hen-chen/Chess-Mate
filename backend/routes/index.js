@@ -2,26 +2,34 @@ const express = require('express')
 const router = express.Router()
 const mysql = require('mysql')
 
+const config = require('../config.json')
+
 // TODO: fill in your connection details here
 const connection = mysql.createConnection({
-  host: 'fluffydoge.cgutofy9jpld.us-east-1.rds.amazonaws.com',
-  user: 'admin',
-  password: 'meowmeow',
-  port: 3306,
-  database: 'Chess',
+  host: config.rds_host,
+  user: config.rds_user,
+  password: config.rds_password,
+  port: config.rds_port,
+  database: config.rds_db,
 })
 connection.connect()
 
-// router.get('/path', (req, res) => {
-//   res.send('hello')
-// })
+/**
+ * Sort Fide players in the US by world rank in ascending order, returning the first and last names of the players.
+ */
+router.get('/sortFidePlayers', (_req, res) => {
+  connection.query(
+    `SELECT firstName, lastName, worldRankAllPlayers
+  FROM FidePlayers
+  WHERE country = 'US'
+  ORDER BY worldRankAllPlayers;`,
+    (error, results) => resSender(error, results, res),
+  )
+})
 
-/* GET home page. */
-// router.get('/sortFidePlayers', (req, res) => {
-//   const elo = req.params.fideRating
-// })
-
-// /getGames/bob
+/**
+ * Given user, find all the game ids that the user `id` played
+ */
 router.get('/getGames/:id', (req, res) => {
   const { id } = req.params
   connection.query(
@@ -29,15 +37,17 @@ router.get('/getGames/:id', (req, res) => {
   FROM LichessGames g, LichessPlayers p
   WHERE p.id = '${id}'
   AND (g.whiteId = p.id OR g.blackId = p.id)`,
-    (error, results) => {
-      if (error) {
-        console.log(error)
-        res.json({ error: error })
-      } else if (results) {
-        res.json({ results: results })
-      }
-    },
+    (error, results) => resSender(error, results, res),
   )
 })
+
+const resSender = (error, results, res) => {
+  if (error) {
+    console.log(error)
+    res.json({ error: error })
+  } else if (results) {
+    res.json({ results: results })
+  }
+}
 
 module.exports = router
