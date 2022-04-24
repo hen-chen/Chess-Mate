@@ -16,19 +16,21 @@ const connection = mysql.createConnection({
 connection.connect()
 
 /**
- * Sort Fide players in the US by world rank in ascending order, returning the first and last names of the players.
+ * Sort Fide players by world rank in ascending order given country, returning the first and last names of the players.
  */
-router.get('/sortFidePlayers', (_req, res) => {
+router.get('/sortFidePlayers/:country', (req, res) => {
+  const { country } = req.params
   connection.query(
     `SELECT firstName, lastName, worldRankAllPlayers
   FROM FidePlayers
-  WHERE country = 'US'
+  WHERE country = '${country}'
   ORDER BY worldRankAllPlayers;`,
     (error, results) => resSender(error, results, res),
   )
 })
 
 /**
+ * Licess
  * Given user, find all the game ids that the user `id` played
  */
 router.get('/getGames/:id', (req, res) => {
@@ -98,8 +100,8 @@ router.get('/sortByTypeRating/:type', (req, res) => {
 /**
  * Fide
  * Find all Fide Player id and all their classical ratings in `year``, returning the player id,     year, rating, and type
- * @param year
- * @param type - type of Fide Game
+ * @param year e.g. 2011
+ * @param type type of Fide Game
  */
 router.get('/getRatingsInYear/:year/:type', (req, res) => {
   const { year, type } = req.params
