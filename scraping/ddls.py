@@ -101,15 +101,28 @@ CREATE TABLE FideGames(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     date VARCHAR(10),
     time VARCHAR(8),
+    timeControl VARCHAR(10),
     eco VARCHAR(4),
-    whiteId VARCHAR(8) NOT NULL,
+    whiteId INT NOT NULL,
     whiteRating INT,
-    blackId VARCHAR(8) NOT NULL,
+    blackId INT NOT NULL,
     blackRating INT,
     result enum('1-0', '1/2-1/2', '0-1'),
     pgn VARCHAR(10000),
-    FOREIGN KEY (whiteId) REFERENCES FidePlayers(id),
-    FOREIGN KEY (blackId) REFERENCES FidePlayers(id)
+    FOREIGN KEY (whiteId) REFERENCES FideIdLookup(playerId),
+    FOREIGN KEY (blackId) REFERENCES FideIdLookup(playerId)
 )
 """
 
+createFideIdAssociation = """
+CREATE TABLE FideIdLookup (
+    playerId INT NOT NULL AUTO_INCREMENT,
+    fideId VARCHAR(8),
+    PRIMARY KEY (playerId),
+    FOREIGN KEY (fideId) REFERENCES FidePlayers(id)
+)
+"""
+
+indexForFasterLookup = """
+CREATE INDEX NameIndex ON FidePlayers (lastName, firstName)
+"""

@@ -8,7 +8,7 @@ from lichess import query_helper
 FIDE_SCRAPER_HOST = "http://localhost:3000"
 cc = country_converter.CountryConverter()
 
-def should_fetch_players(headers):
+def should_parse(headers):
   # Don't fetch games that are too old (caissabase goes back to 1700s)
   date = headers.get("Date", "")
   if date < "1980":
@@ -29,10 +29,10 @@ def parse_fide_game_no_ids(game):
     res["blackRating"] = headers.get("BlackElo")
     res["result"] = headers.get("Result")
     res["pgn"] = str(game)
-    return (None, headers.get("White"), headers.get("Black"))
+    return res
   except Exception as e:
     print("Exception parsing pgn:", e)
-    return (None, None, None)
+    return res
 
 def scrape_fide_profile(fide_id):
   res = requests.get(f"{FIDE_SCRAPER_HOST}/player/{fide_id}/info?include_history=true")
@@ -41,6 +41,20 @@ def scrape_fide_profile(fide_id):
   else:
     # print("Fide scraper did not return ok", res.content, fide_id)
     return None
+
+# def mock_get_fide_id_from_db(connection, firstName, lastName):
+#   return "1000055"
+
+def get_fide_id_from_db(connection, firstName, lastName):
+  sql = "SELECT (id) FROM FidePlayers USE INDEX (NameIndex) WHERE `firstName`=%s AND `lastName`=%s"
+  cursor = connection.cursor()
+  cursor.execute(sql, [firstName, lastName])
+  for (id,) in cursor:
+    return id
+
+def parse_name(fullname):
+  (lastname, _, firstname) = fullname.partition(",")
+  return (firstname.strip(), lastname.strip())
 
 def parse_title(raw_title):
   t = raw_title.lower().strip()
@@ -130,12 +144,15 @@ def parse_raw_fide_data(fide_id, exp_name, raw_data):
 
   return (player, history)
 
-def insert_fide_player(connection, player):
+def insert_helper(connection, dict, tablename):
   cursor = connection.cursor()
-  placeholders, columns = query_helper(player)
-  sql = f"INSERT IGNORE INTO FidePlayers ({columns}) VALUES ({placeholders})"
-  cursor.execute(sql, list(player.values()))
+  placeholders, columns = query_helper(dict)
+  sql = f"INSERT IGNORE INTO {tablename} ({columns}) VALUES ({placeholders})"
+  cursor.execute(sql, list(dict.values()))
   connection.commit()
+
+def insert_fide_player(connection, player):
+  insert_helper(connection, player, "FidePlayers")
 
 def insert_fide_rating_hist(connection, history: list[dict]):
   if len(history) == 0:
@@ -149,12 +166,47 @@ def insert_fide_rating_hist(connection, history: list[dict]):
     cursor.executemany(sql, parsed_users_list)
     connection.commit()
 
-async def export_fide(pgn_path, connection, start_count=0, quantity=None):
+async def insert_fide_player_and_hist(connection, page, player_name):
+  try:
+    fide_id = await get_fide_id(page, player_name)
+    try:
+      if player_name:
+        raw_data = scrape_fide_profile(fide_id)
+        (parsed_player, parsed_hist) = parse_raw_fide_data(fide_id, player_name, raw_data)
+        if parsed_player:
+          insert_fide_player(connection, parsed_player)
+        if parsed_hist:
+          insert_fide_rating_hist(connection, parsed_hist)
+      return fide_id
+    except Exception as e:
+      # print("Did not scrape & put in db", e)
+      return None
+  except Exception as e:
+    print("Error with puppeteer, restarting browser:", e)
+    page = await get_fide_page()
+
+def insert_fide_id_lookup(connection, fide_id):
+  cursor = connection.cursor()
+  sql = f"INSERT IGNORE INTO FideIdLookup (fideId) VALUES (%s)"
+  cursor.execute(sql, [fide_id])
+  connection.commit()
+  return cursor.lastrowid
+
+def insert_fide_game(connection, parsed_game):
+  insert_helper(connection, parsed_game, "FideGames")
+
+# If fetch_players is false, then we just try to look up the player in the database to get fideId
+# And do NOT web scrape
+async def export_fide(pgn_path, connection, fetch_players=False, start_count=0, quantity=None):
   pgn = open(pgn_path)
+  # bookmark game so we can read it after reading the header
+  game_offset = pgn.tell()
   headers = chess.pgn.read_headers(pgn)
   count = 0
 
   page = await get_fide_page()
+  # The scraper is buggy so we won't try to fetch names we know won't work twice
+  scrape_error_cache = set()
 
   while headers != None and (quantity == None or count < quantity):
     if count < start_count:
@@ -163,27 +215,33 @@ async def export_fide(pgn_path, connection, start_count=0, quantity=None):
       continue
     white = headers.get("White")
     black = headers.get("Black")
-    player_names = [white, black]
-    if should_fetch_players(headers):
-      for player_name in player_names:
-        try:
-          fide_id = await get_fide_id(page, player_name)
-          try:
-            if player_name:
-              raw_data = scrape_fide_profile(fide_id)
-              (parsed_player, parsed_hist) = parse_raw_fide_data(fide_id, player_name, raw_data)
-              if parsed_player:
-                insert_fide_player(connection, parsed_player)
-              if parsed_hist:
-                insert_fide_rating_hist(connection, parsed_hist)
-          except Exception as e:
-            # print("Did not scrape & put in db", e)
-            continue
-        except Exception as e:
-          print("Error with puppeteer, restarting browser:", e)
-          page = await get_fide_page()
+    if should_parse(headers):
+      async def handle_player_name(connection, player_name):
+        (firstname, lastname) = parse_name(player_name)
+        fide_id = get_fide_id_from_db(connection, firstname, lastname)
+        if fide_id == None and fetch_players == True and player_name not in scrape_error_cache:
+          fide_id = await insert_fide_player_and_hist(connection, page, player_name)
+          if fide_id == None:
+            scrape_error_cache.add(player_name)
+            return None
+        return insert_fide_id_lookup(connection, fide_id)
+
+      white_id = await handle_player_name(connection, white)
+      black_id = await handle_player_name(connection, black)
+
+      # Can't find fide Id so inserting into games DB wouldn't work anyway with foreign key constraints
+      if white_id == None or black_id == None:
+        continue
+      # Otherwise put game in DB
+      pgn.seek(game_offset)
+      game = chess.pgn.read_game(pgn)
+      parsed_game = parse_fide_game_no_ids(game)
+      parsed_game["whiteId"] = white_id
+      parsed_game["blackId"] = black_id
+      insert_fide_game(connection, parsed_game)
     # iter
     headers = chess.pgn.read_headers(pgn)
+    game_offset = pgn.tell()
     count = count + 1
     if count % 100 == 0:
       print("PGN Count:", count)
