@@ -3,11 +3,16 @@ from pyppeteer import launch
 
 FIDE_URL = 'https://ratings.fide.com/'
 
-async def get_fide_page():
-  browser = await launch()
-  page = await browser.newPage()
-  await page.goto(FIDE_URL)
-  return page
+async def get_fide_page(browser):
+  try:
+    page = await browser.newPage()
+    page = await browser.newPage()
+    await page.goto(FIDE_URL)
+    return page
+  except Exception as e:
+    print(f"Error w puppeteer, browser is also dead: {e}")
+    browser = await launch()
+    get_fide_page(browser)
 
 async def get_fide_id(page, name):
   # clear search bar of previous text before typing

@@ -1,4 +1,5 @@
 import chess.pgn
+from pyppeteer import launch
 from getfide import get_fide_id, get_fide_page
 import requests
 import json
@@ -166,7 +167,7 @@ def insert_fide_rating_hist(connection, history: list[dict]):
     cursor.executemany(sql, parsed_users_list)
     connection.commit()
 
-async def insert_fide_player_and_hist(connection, page, player_name):
+async def insert_fide_player_and_hist(connection, page, browser, player_name):
   try:
     fide_id = await get_fide_id(page, player_name)
     try:
@@ -182,8 +183,8 @@ async def insert_fide_player_and_hist(connection, page, player_name):
       # print("Did not scrape & put in db", e)
       return None
   except Exception as e:
-    print("Error with puppeteer, restarting browser:", e)
-    page = await get_fide_page()
+    print("Error with puppeteer, restarting page:", e)
+    page = await get_fide_page(browser)
 
 def insert_fide_id_lookup(connection, fide_id):
   cursor = connection.cursor()
@@ -204,7 +205,8 @@ async def export_fide(pgn_path, connection, fetch_players=False, start_count=0, 
   headers = chess.pgn.read_headers(pgn)
   count = 0
 
-  page = await get_fide_page()
+  browser = await launch()
+  page = await get_fide_page(browser)
   # The scraper is buggy so we won't try to fetch names we know won't work twice
   scrape_error_cache = set()
 
@@ -220,16 +222,17 @@ async def export_fide(pgn_path, connection, fetch_players=False, start_count=0, 
         (firstname, lastname) = parse_name(player_name)
         fide_id = get_fide_id_from_db(connection, firstname, lastname)
         if fide_id == None and fetch_players == True and player_name not in scrape_error_cache:
-          fide_id = await insert_fide_player_and_hist(connection, page, player_name)
+          fide_id = await insert_fide_player_and_hist(connection, page, browser, player_name)
           if fide_id == None:
             scrape_error_cache.add(player_name)
             return None
         return insert_fide_id_lookup(connection, fide_id)
 
+      # Will insert otb games even if fide ids not known
       white_id = await handle_player_name(connection, white)
       black_id = await handle_player_name(connection, black)
 
-      # Can't find fide Id so inserting into games DB wouldn't work anyway with foreign key constraints
+      # Can't find player Id so inserting into games DB wouldn't work anyway with foreign key constraints
       if white_id == None or black_id == None:
         continue
       # Otherwise put game in DB
