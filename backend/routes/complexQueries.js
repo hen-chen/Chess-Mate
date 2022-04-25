@@ -17,7 +17,7 @@ connection.connect()
 
 // Return a list of 100 usrs with similar rating history
 router.get('/fidetolichesshistory/', (req, res) => {
-  const {fideId} = req.query // required
+  const { fideId } = req.query // required
   // Using these for now because they're the most popular
   const lichessType = "'blitz'"
   const fideType = "'classical'"
@@ -128,7 +128,7 @@ router.get('/poorPlayers/:elo', (req, res) => {
  * Given an `id`, find all openings that `id` player has played. Then, find all the players that the play an opening that `id` plays.
  * @param id the player id
  */
-router.get('/getSimiliarPlayersOpenings/:id', (req, res) => {
+router.get('/getSimilarPlayersOpenings/:id', (req, res) => {
   const { id } = req.params
   connection.query(
     `
