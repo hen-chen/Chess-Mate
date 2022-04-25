@@ -56,6 +56,46 @@ router.get('/topGamesCountryPlayers/:elo', (req, res) => {
 })
 
 /**
+ * Find some poor level games (sum of elo is < 2400), and determine all the players’ playtime. Find all the unverified players with elo less than `elo` (with similar playtime). Sort the users by playtime, elo.
+ * @param elo fideRating less than this elo
+ */
+router.get('/poorPlayers/:elo', (req, res) => {
+  const { elo } = req.params
+  connection.query(
+    `WITH poor_games AS (
+      SELECT *
+      FROM
+      (
+        SELECT whiteId, blackId, whiteRating, blackRating, (whiteRating + blackRating) AS sum_elo
+        FROM LichessGames
+      ) SummedElo
+      WHERE SummedElo.sum_elo <= 2400
+    ),
+    Playtime_poor_games_white AS (
+      SELECT totalPlayTime, fideRating, lp.id
+      FROM poor_games pg JOIN LichessPlayers lp ON pg.whiteId = lp.id
+    ),
+    Playtime_poor_games_black AS (
+      SELECT totalPlayTime, fideRating, lp.id
+      FROM poor_games pg JOIN LichessPlayers lp ON pg.blackId = lp.id
+    ),
+    Combine AS (
+      SELECT *
+      FROM Playtime_poor_games_white
+      UNION
+      SELECT *
+      FROM Playtime_poor_games_black
+    )
+    SELECT *
+    FROM LichessPlayers lp JOIN Combine c ON c.id = lp.id
+    WHERE lp.isVerified = 0 AND lp.fideRating < ${elo}
+    ORDER BY lp.totalPlayTime, lp.fideRating;
+    `,
+    (error, results) => resSender(error, results, res),
+  )
+})
+
+/**
  * Helper function that sends to the client
  * @param {if an error occurred, send an error msg} error
  * @param {send the results} results
