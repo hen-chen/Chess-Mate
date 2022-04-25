@@ -149,3 +149,30 @@ ROUTE 8
     -totalPlayTime, integer (data type)
       --> total time spent on Lichess 
 
+ROUTE 9
+1. Request Path: /fidetolichesshistory/
+   Method: GET
+   Description: Return a list of 100 usrs with similar rating history
+2. Request Params:
+    -fideId: query (param type), string (data type), required
+      --> the player's id in Fide
+3. Response Params:
+    -lichessId, string (data type)
+      --> player's id username
+    -score, integer (data type)
+      --> the lower the score, the more similar the rating history is
+    -variance, integer (data type)
+      --> the variance
+    -numPoints, integer (data type)
+      --> how many data points used
+
+ROUTE 10
+1. Request Path: /getSimiliarPlayersOpenings/:id
+   Method: GET
+   Description: Given an `id`, find all openings that `id` player has played. Then, find all the players that the play an opening that `id` plays.
+2. Request Params:
+    -id: path (param type), string (data type), required
+      --> the player's id
+3. Response Params:
+    -username, string (data type)
+      --> player's id username
