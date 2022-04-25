@@ -124,3 +124,28 @@ ROUTE 7
       --> the country where the player is from 
     -classicalRating, integer (data type)
       --> player's classical rating
+
+ROUTE 8
+1. Request Path: /poorPlayers/:elo
+   Method: GET
+   Description: Find some poor level games (sum of elo is < 2400), and determine all the players’ playtime. Find all the unverified players with elo less than `elo` (with similar playtime). Sort the users by playtime, elo.
+2. Request Params:
+    -elo: path (param type), integer (data type), required
+      --> the player's rating
+3. Response Params:
+    all attributes in the LichessPlayers table joined on Combine table, including the following:
+    -id, string (data type)
+      --> player's id username
+    -username, string (data type)
+      --> player's username
+    -firstName, string (data type)
+      --> player's first Name
+    -lastName, string (data type)
+      --> player's last Name
+    -country, string (data type)
+      --> the country where the player is from 
+    -classicalRating, integer (data type)
+      --> player's classical rating
+    -totalPlayTime, integer (data type)
+      --> total time spent on Lichess 
+
