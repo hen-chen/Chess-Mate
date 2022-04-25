@@ -125,6 +125,55 @@ router.get('/poorPlayers/:elo', (req, res) => {
 })
 
 /**
+ * Given an `id`, find all openings that `id` player has played. Then, find all the players that the play an opening that `id` plays.
+ * @param id the player id
+ */
+router.get('/getSimiliarPlayersOpenings/:id', (req, res) => {
+  const { id } = req.params
+  connection.query(
+    `
+    WITH black_games AS (
+        SELECT *
+        FROM LichessGames
+        WHERE blackId = '${id}'
+    ),
+    white_games AS (
+        SELECT *
+        FROM LichessGames
+        WHERE whiteId = '${id}'
+    ),
+    combine AS (
+        SELECT eco
+        FROM white_games
+        UNION
+        SELECT eco
+        FROM black_games
+    ),
+    other_users_black AS (
+        SELECT username
+        FROM LichessPlayers lp JOIN LichessGames LG on lp.id = LG.blackId
+        WHERE LG.eco IN (SELECT * FROM combine)
+    ),
+    other_users_white AS (
+        SELECT username
+        FROM LichessPlayers lp JOIN LichessGames LG on lp.id = LG.whiteId
+        WHERE LG.eco IN (SELECT * FROM combine)
+    ),
+    combine_others AS (
+        SELECT username
+        FROM other_users_black
+        UNION
+        SELECT username
+        FROM other_users_white
+    )
+    SELECT *
+    FROM combine_others;
+  `,
+    (error, results) => resSender(error, results, res),
+  )
+})
+
+/**
  * Helper function that sends to the client
  * @param {if an error occurred, send an error msg} error
  * @param {send the results} results
