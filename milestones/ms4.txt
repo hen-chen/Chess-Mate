@@ -1,0 +1,126 @@
+Milestone 4 - Group 13
+
+API Specification
+
+ROUTE 1:
+1. Request Path: /sortFidePlayers/:country
+   Method: GET
+   Description: Sort Fide players by world rank in ascending order given country, returning the first and last names of the players.
+2. Request Params: 
+    -country: path (param type), string (data type), required
+      --> player's country
+3. Response Params: 
+    -firstName, string (data type)
+      --> player's first name
+    -lastName, string (data type)
+      --> player's last name
+    -worldRankAllPlayers, integer (data type)
+      --> player's world rank
+
+ROUTE 2:
+1. Request Path: /getGames/:id
+   Method: GET 
+   Description: Given user, find all the game ids that the user `id` played (Lichess)
+2. Request Params:
+    -id: path (param type), string (data type), required
+      --> player's id username
+3. Response Params:
+    -id, string (data type)
+      --> player's id username 
+
+ROUTE 3:
+1. Request Path: /playerRatings
+   Method: GET
+   Description: Return the ids, bullet rating, blitz rating, rapid rating, and classical rating of Lichess       
+                players, ensuring that the Lichess players returned have existing ratings for these fields
+2. Request Params: NONE
+3. Response Params:
+    -id, string (data type)
+      --> player's id username
+    -bulletRating, integer (data type)
+      --> player's bullet rating
+    -blitzRating, integer (data type)
+      --> player's blitz rating
+    -rapidRating, integer (data type)
+      --> player's rapid rating
+    -classicalRating, integer (data type)
+      --> player's classical rating
+
+ROUTE 4:
+1. Request Path: /sortTitle/:title
+   Method: GET
+   Description: Given a title (e.g. GM), find all players with that title sorted by classicalRating
+2. Request Params:
+    -title: path (param type), string (data type), required
+      --> player's chess title
+3. Response Params:
+    -id, string (data type)
+      --> player's id username
+    -username, string (data type)
+      --> player's username
+    -firstName, string (data type)
+      --> player's first Name
+    -lastName, string (data type)
+      --> player's last Name
+    -country, string (data type)
+      --> the country where the player is from 
+    -classicalRating, integer (data type)
+      --> player's classical rating
+
+ROUTE 5
+1. Request Path: /sortByTypeRating/:type
+   Method: GET
+   Description: Given a type of game, find the top 100 players that play that type and sort by their Rating
+2. Request Params:
+    -type: path (param type), string (data type), required
+      -->the type of game (e.g. fide, uscf, ecf, bullet, blitz, rapid, classical)
+3. Response Params:
+    -id, string (data type)
+      --> player's id username
+    -username, string (data type)
+      --> player's username
+    -country, string (data type)
+      --> the country where the player is from 
+    -type, string (data type)
+      -->the type of game (e.g. fide, uscf, ecf, bullet, blitz, rapid, classical)
+
+ROUTE 6
+1. Request Path: /getRatingsInYear/:year/:type
+   Method: GET
+   Description: Find all Fide Player id and all their classical ratings in `year`, returning the player id, year, rating, and type
+2. Request Params:
+    -year: path (param type), integer (data type), required
+      --> the year corresponding to when the rating to the player was given
+    -type: path (param type), string (data type), required
+      -->the type of game (e.g. fide, uscf, ecf, bullet, blitz, rapid, classical)
+3. Response Params:
+    -id, string (data type)
+      --> player's id username
+    -year, integer (data type)
+      --> the year corresponding to when the rating to the player was given
+    -rating, integer (data type)
+      --> the classical rating the player receives in this year
+    -type, string (data type)
+      -->the type of game (e.g. fide, uscf, ecf, bullet, blitz, rapid, classical)
+
+ROUTE 7
+1. Request Path: /topGamesCountryPlayers/:elo
+   Method: GET
+   Description: Find all top level games (where the sum of both players’ elo is >= 3000). Find all the players in these games, and get all the players’ countries. Then find all the users in these countries. Sort the users by country and elo.
+2. Request Params:
+    -elo: path (param type), integer (data type), required
+      --> the player's rating
+3. Response Params:
+    all attributes in the LichessPlayers table, including the following:
+    -id, string (data type)
+      --> player's id username
+    -username, string (data type)
+      --> player's username
+    -firstName, string (data type)
+      --> player's first Name
+    -lastName, string (data type)
+      --> player's last Name
+    -country, string (data type)
+      --> the country where the player is from 
+    -classicalRating, integer (data type)
+      --> player's classical rating
