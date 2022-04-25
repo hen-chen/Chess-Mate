@@ -198,8 +198,8 @@ def insert_fide_game(connection, parsed_game):
 
 # If fetch_players is false, then we just try to look up the player in the database to get fideId
 # And do NOT web scrape
-async def export_fide(pgn_path, connection, fetch_players=False, start_count=0, quantity=None):
-  pgn = open(pgn_path)
+async def export_fide(pgn_path, connection, fetch_players=False, start_count=0, quantity=None, stride=1):
+  pgn = open(pgn_path, encoding="utf-8")
   # bookmark game so we can read it after reading the header
   game_offset = pgn.tell()
   headers = chess.pgn.read_headers(pgn)
@@ -211,7 +211,7 @@ async def export_fide(pgn_path, connection, fetch_players=False, start_count=0, 
   scrape_error_cache = set()
 
   while headers != None and (quantity == None or count < quantity):
-    if count < start_count:
+    if count < start_count or count % stride != 0:
       chess.pgn.skip_game(pgn)
       count = count + 1
       continue
@@ -246,5 +246,5 @@ async def export_fide(pgn_path, connection, fetch_players=False, start_count=0, 
     headers = chess.pgn.read_headers(pgn)
     game_offset = pgn.tell()
     count = count + 1
-    if count % 100 == 0:
+    if count % 10000 == 0:
       print("PGN Count:", count)

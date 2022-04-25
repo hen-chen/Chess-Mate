@@ -5,7 +5,7 @@ from fide import export_fide
 import asyncio
 
 # Replace
-OTB_PGN_PATH = "../../proj/canada_20220401.pgn"
+OTB_PGN_PATH = "../../proj/caissabase.pgn"
 LICHESS_PGN_PATH = "../../proj/lichess_db_standard_rated_2022-03.pgn"
 
 # Connect to db
@@ -24,7 +24,7 @@ connection = pymysql.connect(host=host,
 # # test_parse_lichess_game()
 # export_lichess_games(LICHESS_PGN_PATH, connection, 181000, 601000, 100)
 asyncio.get_event_loop().run_until_complete(
-  export_fide(OTB_PGN_PATH, connection, fetch_players=True, start_count=200, quantity=None)
+  export_fide(OTB_PGN_PATH, connection, fetch_players=True, start_count=1000, quantity=None, stride=100)
 )
 
 # res = mock_fetch_rating_hist("penguingim1")

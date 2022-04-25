@@ -15,6 +15,35 @@ const connection = mysql.createConnection({
 })
 connection.connect()
 
+// Return a list of 100 usrs with similar rating history
+router.get('/fidetolichesshistory/', (req, res) => {
+  const {fideId} = req.query // required
+  // Using these for now because they're the most popular
+  const lichessType = "'blitz'"
+  const fideType = "'classical'"
+  const threshold = 500
+
+  connection.query(
+    `
+      WITH MergedHistory AS (
+        SELECT fideId, F.month AS month, F.year AS year, F.rating AS fideRating, L.rating AS lichessRating, lichessId
+        FROM FideHistory F
+                JOIN LichessHistory L ON F.year = L.year AND F.month = L.month
+            AND fideId = ${fideId} AND L.type = ${lichessType} AND F.type = ${fideType}
+    )
+    SELECT lichessId,
+          ABS(AVG(lichessRating - fideRating) - ${threshold}) AS score,
+          VARIANCE(lichessRating - fideRating - ${threshold}) AS variance,
+          COUNT(*)                                            AS numPoints
+    FROM MergedHistory
+    GROUP BY lichessId
+    ORDER BY score, numPoints DESC, variance DESC
+    LIMIT 100
+    `,
+    (error, results) => resSender(error, results, res),
+  )
+})
+
 /**
  * Find all top level games (where the sum of both players’ elo is >= 3000). Find all the players in these games, and get all the players’ countries. Then find all the users in these countries. Sort the users by country and elo.
  * @param elo the total sum elo (e.g. 4000)
