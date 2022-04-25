@@ -17,6 +17,7 @@ connection.connect()
 
 /**
  * Sort Fide players by world rank in ascending order given country, returning the first and last names of the players.
+ * @param country e.g. US for United States
  */
 router.get('/sortFidePlayers/:country', (req, res) => {
   const { country } = req.params
@@ -32,6 +33,7 @@ router.get('/sortFidePlayers/:country', (req, res) => {
 /**
  * Licess
  * Given user, find all the game ids that the user `id` played
+ * @param id user id
  */
 router.get('/getGames/:id', (req, res) => {
   const { id } = req.params
@@ -101,7 +103,7 @@ router.get('/sortByTypeRating/:type', (req, res) => {
  * Fide
  * Find all Fide Player id and all their classical ratings in `year``, returning the player id,     year, rating, and type
  * @param year e.g. 2011
- * @param type type of Fide Game
+ * @param type type of Fide Game (e.g. classical, rapid, blitz)
  */
 router.get('/getRatingsInYear/:year/:type', (req, res) => {
   const { year, type } = req.params
