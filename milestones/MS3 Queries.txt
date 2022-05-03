@@ -1,0 +1,158 @@
+﻿Milestone 3
+Creds
+mysql
+Db instance identifier
+fluffydoge.cgutofy9jpld.us-east-1.rds.amazonaws.com
+fluffydoge
+Username
+admin
+Password
+meowmeow
+
+
+1. Sort Fide players in the US by world rank in ascending order, returning the first and last names of the players
+   1. SELECT firstName, lastName 
+FROM FidePlayers
+WHERE country = ‘US’
+ORDER BY worldRankAllPlayers;
+
+
+2. Given user, find all the game ids that the user -tristan- played
+   1. SELECT g.id
+FROM LichessGames g, LichessPlayers p
+WHERE p.id = ‘-tristan-’ AND (g.whiteId = p.id OR g.blackId = p.id);
+
+
+3. Return the ids, bullet rating, blitz rating, rapid rating, and classical rating of Lichess players, ensuring that the Lichess players returned have existing ratings for these fields
+   1. SELECT id, bulletRating, blitzRating, rapidRating, classicalRating
+FROM LichessPlayers
+WHERE bulletRating IS NOT NULL
+AND blitzRating IS NOT NULL
+AND rapidRating IS NOT NULL
+AND classicalRating IS NOT NULL;
+
+
+4. Return all Fide Game ids, black ids, white ids where both players have a GM title
+   1. SELECT g.id, g.blackId, g.whiteId
+FROM FideGames g, FidePlayers p
+WHERE g.blackId = ‘GM’ AND g.whiteId = ‘GM’;
+
+
+5. Return all Fide Game ids (renamed as FideGameId), date (renamed as Date), time (renamed as Time) of games where both players were in the top 100 rankings
+   1. SELECT id AS FideGameId, date AS Date, time AS Time
+FROM FideGames
+WHERE (whiteRating >= 100) AND (blackRating >= 100);
+
+
+6. Find all Fider Player id and all their classical ratings in 2011, returning the player id, year, rating, and type
+   1. SELECT p.id, h.year, h.rating, h.type
+FROM FidePlayers p JOIN FideHistory h ON p.id = h.fideId
+WHERE year = 2011 AND type = ‘classical’;
+
+
+COMPLEX QUERIES
+7. Find all top players (1600+), say users X, and look at all their games, list all the users Y that the users X has played against. The players in users Y cannot also be in the group of players for users X. Then find out how many of the players in the group of players Y are in each country, ultimately returning a column attribute country and another column denoting the number of players (in group Y) that are from that country. List the tuples in alphabetical order by country. 
+WITH top_players AS (
+SELECT *
+FROM FidePlayers
+WHERE worldRankAllPlayers >= 1600
+), top_games_black AS (
+SELECT g.id, g.blackId
+FROM FideGames g, top_players p
+WHERE p.id = g.whiteId
+), top_games_white AS (
+SELECT g.id, g.whiteId
+FROM FideGames g, top_players p
+WHERE p.id = g.blackId
+), opponents AS (
+SELECT *
+FROM FidePlayers p, top_games_black b, top_games_white w
+WHERE (p.id = b.blackId OR p.id = w.whiteId) AND p.id NOT IN (SELECT id FROM top_players)
+)
+SELECT country, COUNT(*) AS num_players
+FROM opponents
+GROUP BY country
+ORDER BY country;
+
+
+8. Find all top level games (where the sum of both players’ elo is >= 3000). Find all the players in these games, and get all the players’ countries. Then find all the users in these countries. Sort the users by country and elo.
+WITH top_games AS (
+        SELECT *, (whiteRating + blackRating) AS sum_elo
+        FROM LiChessGames
+        WHERE sum_elo >= 3000
+),
+Countries_top_games_white AS (
+        SELECT country
+        FROM top_games tg JOIN LichessPlayers lp ON tg.whiteId = lp.id
+),
+Countries_top_games_black AS (
+        SELECT country
+        FROM top_games tg JOIN LichessPlayers lp ON tg.blackId = lp.id
+),
+Countries AS (
+        SELECT *
+        FROM Countries_top_games_white
+        UNION
+        SELECT *
+Countries_top_games_black
+)
+SELECT *
+FROM LiChessPlayers lp
+WHERE lp.country IN (SELECT * FROM Countries)
+ORDER BY lp.fideRating, lp.country;
+
+
+9. Fetch all Fide users whose rapid ratings (if they played in a rapid game) increased from Jan 2011 to Feb 2011. Then from here, filter the users such that only the Fide users with Feb 2011 rapid ratings greater than the Lichess user -tristan- ‘s rapid rating in Feb 2011. From these users, out of those from the US, return the user titles and how many users are in each title. Only show the first 20 results.
+        WITH fide_jan AS (
+        SELECT DISTINCT fideId, rating
+        FROM FideHistory
+        WHERE month = 0 AND year = 2011 AND type = ‘rapid’
+        ), fide_feb AS (
+        SELECT DISTINCT fideId, rating
+        FROM FideHistory
+        WHERE month = 1 AND year = 2011 AND type = ‘rapid’
+        ), fide_increase AS (
+        SELECT j.fideId AS fideId, j.rating AS jan_rating, f.rating AS feb_rating
+        FROM fide_jan j JOIN fide_feb f ON j.fideId = f.fideId
+        WHERE f.rating > j.rating
+        ), fide_tristan AS (
+        SELECT f.fideId AS fideId
+        FROM fide_increase f, LichessHistory l
+        WHERE f.feb_rating > (SELECT rating FROM LichessHistory WHERE lichessId = 
+  ‘-tristan-’ AND month = 1 AND year = 2011 AND type = ‘rapid’)
+        ), fide_US AS (
+        SELECT p.id AS fideId, title
+        FROM fide_tristan t JOIN FidePlayers p ON t.fideId = p.id
+        WHERE p.country = ‘US’
+        ) 
+        SELECT title, COUNT(*) AS num_players
+FROM fide_US
+GROUP BY title
+        FETCH NEXT 20 ROWS ONLY;
+
+
+10. Find some poor level games (sum of elo is < 2400), and determine all the players’ playtime. Find all the unverified players with elo less than 1200 (with similar playtime). Sort the users by playtime, elo.
+WITH poor_games AS (
+        SELECT *, (whiteRating + blackRating) AS sum_elo
+        FROM LiChessGames
+        WHERE sum_elo <= 2400
+),
+Playtime_poor_games_white AS (
+        SELECT totalPlayTime, fideRating
+        FROM poor_games pg JOIN LichessPlayers lp ON pg.whiteId = lp.id
+),
+Playtime_poor_games_black AS (
+        SELECT totalPlayTime, fideRating
+        FROM poor_games pg JOIN LichessPlayers lp ON pg.blackId = lp.id
+),
+Combine AS (
+        SELECT *
+        FROM Playtime_top_games_white
+        UNION
+        SELECT *
+Playtime_top_games_black
+)
+SELECT *
+FROM LiChessPlayers lp
+WHERE lp.isVerified = 1 AND lp.fideRating < 1200
+ORDER BY lp.playTime, lp.fideRating;
