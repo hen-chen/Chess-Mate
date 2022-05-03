@@ -1,8 +1,9 @@
-import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import PlayersPage from './pages/PlayersPage'
-import GamesPage from './pages/GamesPage'
-import HomePage from './pages/Home'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import PlayersPage from './pages/PlayersPage';
+import GamesPage from './pages/GamesPage';
+import HomePage from './pages/Home';
+import './App.css';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="games" element={<GamesPage />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
