@@ -1,5 +1,5 @@
 const GamesPage = () => {
-  return <>Game page</>
-}
+  return <>Game page</>;
+};
 
-export default GamesPage
+export default GamesPage;
