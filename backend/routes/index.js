@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mysql = require('mysql')
+const _ = require('lodash/core')
 
 // private connection credentials to connect to our database
 const config = require('../config.json')
@@ -14,6 +15,56 @@ const connection = mysql.createConnection({
   database: config.rds_db,
 })
 connection.connect()
+
+// Get player by lichess id
+router.get('/player/lichess/:id', (req, res) => {
+  const { id } = req.params
+  connection.query(
+    `SELECT * FROM LichessPlayers WHERE id=${connection.escape(id)}`,
+    (error, results) => {
+      if (results && results.length > 0) {
+        res.send(results[0])
+      } else {
+        res.send({ error })
+      }
+    },
+  )
+})
+
+// Get player histories end points
+// Returns data as { "bullet": [year/month/val], "blitz": [year/month/val], ... }
+// Only lichess has bullet
+const getRatingHistory = (type, res, id) => {
+  tableName = type === 'lichess' ? 'LichessHistory' : 'FideHistory'
+  idType = type === 'lichess' ? 'lichessId' : 'fideId'
+  connection.query(
+    `SELECT * FROM ${tableName} WHERE ${idType}=${connection.escape(id)}`,
+  ),
+    // TODO: untested
+    (error, results) => {
+      if (results) {
+        const groupedResults = _(results)
+          .groupBy('type')
+          .map(type, (val) => {
+            const { month, year, rating } = val
+            return { month, year, rating }
+          })
+        res.send(groupedResults)
+      } else {
+        res.send({ error })
+      }
+    }
+}
+
+router.get('/history/lichess/:id', (req, res) => {
+  const { id } = req.params
+  getRatingHistory('lichess', res, id)
+})
+
+router.get('/history/fide/:id', (req, res) => {
+  const { id } = req.params
+  getRatingHistory('fide', res, id)
+})
 
 /**
  * Sort Fide players by world rank in ascending order given country, returning the first and last names of the players.
