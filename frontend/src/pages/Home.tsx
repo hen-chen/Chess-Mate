@@ -6,7 +6,11 @@ const HomePage = () => {
   return (
     <>
       <h1>Chess X</h1>
+
+      {/* the search bar for players */}
       <Search />
+
+      {/* leaderboard of Players */}
     </>
   );
 };
