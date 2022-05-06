@@ -4,7 +4,6 @@ import { Form } from 'react-bootstrap';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
-
   const nav = useNavigate();
 
   return (
