@@ -15,8 +15,7 @@ const Search = () => {
           placeholder="Search"
           onKeyPress={(e) => {
             if (e.code === 'Enter' && searchQuery.trim().length) {
-              // TODO: given query, e.g. add backend that loads player page
-              nav(`/searchPlayer?q=${searchQuery}`);
+              nav(`/players?q=${searchQuery}`);
             }
           }}
         />
@@ -24,7 +23,7 @@ const Search = () => {
           disabled={!searchQuery.trim().length}
           className="btn btn-info btn-small"
           type="button"
-          onClick={() => nav(`/searchPlayer?q=${searchQuery}`)}
+          onClick={() => nav(`/players?q=${searchQuery}`)}
         >
           Search
         </button>

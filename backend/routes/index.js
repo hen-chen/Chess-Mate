@@ -168,6 +168,19 @@ router.get('/getRatingsInYear/:year/:type', (req, res) => {
   )
 })
 
+// ================== Used in Search ==================
+
+router.get('/players', (req, res) => {
+  const { p } = req.query
+  connection.query(
+    `SELECT *
+    FROM LichessPlayers
+    WHERE LOWER(username) LIKE LOWER('${p}')
+    `,
+    (error, results) => resSender(error, results, res),
+  )
+})
+
 /**
  * Helper function that sends to the client
  * @param {if an error occurred, send an error msg} error

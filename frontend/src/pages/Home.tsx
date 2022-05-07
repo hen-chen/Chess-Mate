@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Search from '../components/Home/Search';
+import SearchBar from '../components/SearchBar';
 
 const HomePage = () => {
   return (
@@ -8,7 +8,7 @@ const HomePage = () => {
       <h1>Chess X</h1>
 
       {/* the search bar for players */}
-      <Search />
+      <SearchBar />
 
       {/* leaderboard of Players */}
     </>

@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
+const cors = require('cors')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
@@ -9,7 +10,7 @@ const complexRouter = require('./routes/complexQueries')
 
 const app = express()
 
-// app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }));
+app.use(cors({ credentials: true, origin: true }))
 
 app.use(logger('dev'))
 app.use(express.json())
