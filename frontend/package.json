@@ -67,7 +67,7 @@
       "git add"
     ],
     "*.{html,css,less,ejs}": [
-      "prettier --write",
+      "npx prettier --write",
       "git add"
     ]
   }
