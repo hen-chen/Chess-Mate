@@ -12,7 +12,7 @@ const Search = () => {
         <Form.Control
           type="text"
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search"
+          placeholder="Search Player (e.g. -tristan-)"
           onKeyPress={(e) => {
             if (e.code === 'Enter' && searchQuery.trim().length) {
               nav(`/players?q=${searchQuery}`);

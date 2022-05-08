@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../style/Login.css';
 
-// import * as knight from '../../pictures/knight.png';
 import * as CONSTANTS from '../constants';
 
 function Login() {
@@ -25,6 +24,8 @@ function Login() {
         // successful login
         localStorage.setItem('username', username);
         nav('/');
+      } else {
+        window.alert('Incorrect username or password!');
       }
     } catch (err) {
       console.log(err, 'in Press()');
@@ -33,9 +34,16 @@ function Login() {
 
   return (
     <div className="div-center shadow border">
-      <img src="../pictures/knight.png" />
       <div className="login-form">
-        <h2 className="appname">Login to Chess Mate</h2>
+        <img
+          src={require('../pictures/knight.jpeg')}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '70%',
+            backgroundColor: 'rgba(0,0,0,.5)',
+          }}
+        />
+        <h3 className="appname">Login to Chess Mate</h3>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
@@ -69,13 +77,11 @@ function Login() {
           </Button>
         </Form>
 
-        <br />
-
         <Button
           variant="dark"
           size="sm"
           type="submit"
-          href="/signup"
+          href="/register"
           className="custom-btn-signup"
         >
           Create account

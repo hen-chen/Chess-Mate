@@ -27,6 +27,8 @@ function Register() {
         localStorage.setItem('username', username);
         window.alert('Registration successful!');
         nav('/');
+      } else {
+        window.alert('Username already exists!');
       }
     } catch (err) {
       console.log(err);
@@ -34,7 +36,7 @@ function Register() {
   };
 
   return (
-    <div className="div-center">
+    <div className="div-center shadow border">
       <div className="signup-form">
         <h2 className="appname">Registration</h2>
         <Form>
@@ -76,6 +78,9 @@ function Register() {
             Register
           </Button>
         </Form>
+
+        <br />
+
         <Button
           variant="dark"
           size="sm"
