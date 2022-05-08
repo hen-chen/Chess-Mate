@@ -1,0 +1,93 @@
+.div-center {
+  text-align: center;
+  width: 400px;
+  height: 500px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  display: table;
+}
+
+h2.appname {
+  color: #011f5b;
+}
+
+.login-form {
+  width: 285px;
+  height: 166.5px;
+  margin: 50px auto;
+  padding: 2px;
+}
+
+.login-form Form {
+  background: #011f5b;
+  margin-top: 20px;
+  padding-top: 25px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 17px;
+  border-radius: 20px;
+}
+
+.login-form Button {
+  width: 200px;
+  border-radius: 20px;
+}
+
+.login-form input {
+  width: 200px;
+  border-radius: 20px;
+}
+
+.custom-btn-login {
+  background-color: transparent;
+  border: transparent;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.custom-btn-login:hover {
+  background-color: transparent;
+  border: transparent;
+}
+
+.custom-btn-login:active {
+  background-color: transparent;
+  border: transparent;
+}
+
+.custom-btn-login:visited {
+  background-color: transparent;
+  border: transparent;
+}
+
+.custom-btn-signup {
+  background-color: transparent;
+  border: transparent;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #011f5b;
+  text-decoration: underline;
+}
+
+.custom-btn-signup:hover {
+  background-color: transparent;
+  border: transparent;
+  color: #011f5b;
+}
+
+.custom-btn-signup:active {
+  background-color: transparent;
+  border: transparent;
+}
+
+.custom-btn-signup:visited {
+  background-color: transparent;
+  border: transparent;
+}

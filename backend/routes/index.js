@@ -82,7 +82,7 @@ router.get('/sortFidePlayers/:country', (req, res) => {
 })
 
 /**
- * Licess
+ * Lichess
  * Given user, find all the game ids that the user `id` played
  * @param id user id
  */

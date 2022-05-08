@@ -5,7 +5,7 @@ import SearchBar from '../components/SearchBar';
 const HomePage = () => {
   return (
     <>
-      <h1>Chess X</h1>
+      <h1>Chess Mate</h1>
 
       {/* the search bar for players */}
       <SearchBar />

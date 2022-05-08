@@ -30,7 +30,8 @@ app.use('/', complexRouter)
 
 // ========== Users ==========
 
-app.get('/users/signup', async (req, res) => {
+app.post('/users/signup', async (req, res) => {
+  console.log(req.body)
   const { username, password } = req.body
   const result = await lib.addUser(db, username, password)
 
@@ -41,7 +42,7 @@ app.get('/users/signup', async (req, res) => {
   }
 })
 
-app.get('/users/login', async (req, res) => {
+app.post('/users/login', async (req, res) => {
   const { username, password } = req.body
   const result = await lib.login(db, username, password)
 

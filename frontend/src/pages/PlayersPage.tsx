@@ -15,7 +15,7 @@ const PlayersPage = () => {
   useEffect(() => {
     setSearchQuery(searchQuery); // to avoid lint error
     const query = searchQuery.get('q');
-    const url = `http://${CONSTANTS.HOST}:${CONSTANTS.PORT}/players?p=${query}`; // TODO
+    const url = `${CONSTANTS.HOST}/players?p=${query}`; // TODO
 
     // calls the backend
     async function search() {
