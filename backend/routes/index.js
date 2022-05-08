@@ -168,6 +168,22 @@ router.get('/getRatingsInYear/:year/:type', (req, res) => {
   )
 })
 
+/**
+ * Fide
+ * Find all information about a Fide player given their id
+ * @param id e.g. 5202213
+ */
+router.get('/getFidePlayerInfo/:id', (req, res) => {
+  const { id } = req.params
+  connection.query(
+    `SELECT *
+    FROM FidePlayers
+    WHERE id = "${id}";
+    `,
+    (error, results) => resSender(error, results, res),
+  )
+})
+
 // ================== Used in Search ==================
 
 router.get('/players', (req, res) => {
