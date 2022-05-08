@@ -33,8 +33,15 @@ function Login() {
 
   return (
     <div className="div-center shadow border">
-      <img src="../pictures/knight.png" />
       <div className="login-form">
+        <img
+          src={require('../pictures/knight.jpeg')}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '80%',
+            backgroundColor: 'rgba(0,0,0,.5)',
+          }}
+        />
         <h2 className="appname">Login to Chess Mate</h2>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -69,13 +76,11 @@ function Login() {
           </Button>
         </Form>
 
-        <br />
-
         <Button
           variant="dark"
           size="sm"
           type="submit"
-          href="/signup"
+          href="/register"
           className="custom-btn-signup"
         >
           Create account
