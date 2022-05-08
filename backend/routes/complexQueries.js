@@ -17,19 +17,19 @@ connection.connect()
 
 // Return a list of 100 usrs with similar rating history
 router.get('/fidetolichesshistory/', (req, res) => {
-  const { fideId } = req.query // required
-  // Using these for now because they're the most popular
-  const lichessType = "'blitz'"
-  const fideType = "'classical'"
+  const { fideId, lichessType, fideType } = req.query // required
+  // example params:
+  // const lichessType = "'blitz'"
+  // const fideType = "'classical'"
   const threshold = 500
 
   connection.query(
     `
       WITH MergedHistory AS (
         SELECT fideId, F.month AS month, F.year AS year, F.rating AS fideRating, L.rating AS lichessRating, lichessId
-        FROM FideHistory F
-                JOIN LichessHistory L ON F.year = L.year AND F.month = L.month
-            AND fideId = ${fideId} AND L.type = ${lichessType} AND F.type = ${fideType}
+        FROM (SELECT * FROM FideHistory WHERE fideId = ${fideId} AND type = "${fideType}") F
+                JOIN (SELECT * FROM LichessHistory WHERE type = "${lichessType}") L 
+                ON F.year = L.year AND F.month = L.month
     )
     SELECT lichessId,
           ABS(AVG(lichessRating - fideRating) - ${threshold}) AS score,
