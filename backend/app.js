@@ -53,7 +53,7 @@ app.post('/users/login', async (req, res) => {
   }
 })
 
-app.listen(8000, async () => {
+app.listen(process.env.PORT || 8000, async () => {
   try {
     db = await lib.connect(url)
     await db.collection('Users').remove({})

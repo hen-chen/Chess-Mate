@@ -17,5 +17,3 @@ firstComplexQuery = """
     ORDER BY score, numPoints DESC, variance DESC
     LIMIT 100
 """
-
-
