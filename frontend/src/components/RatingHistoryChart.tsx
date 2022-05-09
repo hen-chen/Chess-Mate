@@ -149,7 +149,8 @@ const RatingHistoryChart = ({ fideId, lichessId }: RatingHistoryChartProps) => {
         label: `${fideDisplay} - ${type}`,
         data,
         spanGaps: true,
-        borderColor: lichessColors[type],
+        borderColor: fideColors[type],
+        pointRadius: 5,
       });
     }
   }
@@ -160,7 +161,8 @@ const RatingHistoryChart = ({ fideId, lichessId }: RatingHistoryChartProps) => {
       label: `${lichessId} - ${type}`,
       data,
       spanGaps: true,
-      borderColor: fideColors[type],
+      borderColor: lichessColors[type],
+      pointRadius: 5,
     });
   }
 
@@ -172,16 +174,44 @@ const RatingHistoryChart = ({ fideId, lichessId }: RatingHistoryChartProps) => {
   const title = `Rating History of ${lichessDisplay}${
     lichessId && fideId ? ' and ' : ''
   }${fideDisplay}`;
+
   const options: ChartOptions = {
     plugins: {
       legend: {
         position: 'right',
+        labels: {
+          padding: 20,
+        },
       },
       title: {
         display: true,
         position: 'top',
         text: title,
       },
+    },
+    // scales: {
+    //   x: {
+    //     title: {
+    //       display: true,
+    //       text: "Month/Year"
+    //     },
+    //     ticks: {
+    //       // For a category axis, the val is the index so the lookup via getLabelForValue is needed
+    //       callback: function(val, index) {
+    //         // Hide the label of every 2nd dataset
+    //         return index % 3 === 0 ? this.getLabelForValue(Number(val)) : '';
+    //       }
+    //     }
+    //   },
+    //   y: {
+    //     title: {
+    //       display: true,
+    //       text: "Rating"
+    //     }
+    //   }
+    // },
+    layout: {
+      padding: 20,
     },
   };
 
