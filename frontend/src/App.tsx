@@ -19,7 +19,7 @@ function App() {
         <Route path="games" element={<GamesPage />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="history" element={<RatingHistory/>}/>
+        <Route path="history" element={<RatingHistory />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,15 +1,14 @@
-
 export type MonthYear = {
-  year: number
-  month: number
-}
+  year: number;
+  month: number;
+};
 
 export type RatingHistoryPoint = {
-  year: number
-  month: number
-  rating: number
-}
+  year: number;
+  month: number;
+  rating: number;
+};
 
 export type RatingHistory = {
-  [key: string]: RatingHistoryPoint[]
-}
+  [key: string]: RatingHistoryPoint[];
+};
