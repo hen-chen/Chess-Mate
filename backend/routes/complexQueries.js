@@ -284,6 +284,67 @@ router.get('/getSimilarPlayersOpenings/:id', (req, res) => {
 
 
 
+// ================== Extras ==================
+// map used for caching with the query below
+let myMap5 = new Map()
+
+// Return a list of 100 usrs with similar rating history
+router.get('/lichesstofidehistory/', (req, res) => {
+  const { lichessId, lichessType, fideType } = req.query // required
+  const key = `${lichessId}-${lichessType}-${fideType}`
+  // example params:
+  // const lichessType = "'blitz'"
+  // const fideType = "'classical'"
+  const threshold = 500
+
+  if (myMap5.has(key)) {
+    res.json({results: myMap5.get(key)})
+  } else {
+      connection.query(
+        `
+          WITH MergedHistory AS (
+            SELECT lichessId, L.month AS month, L.year AS year, L.rating AS lichessRating, F.rating AS fideRating, fideId
+            FROM (SELECT * FROM LichessHistory WHERE lichessId = "${lichessId}" AND type = "${lichessType}") L
+                    JOIN (SELECT * FROM FideHistory WHERE type = "${fideType}") F 
+                    ON L.year = F.year AND L.month = F.month
+        )
+        SELECT fideId,
+              ABS(AVG(fideRating - lichessRating) - ${threshold}) AS score,
+              VARIANCE(fideRating - lichessRating - ${threshold}) AS variance,
+              COUNT(*)                                            AS numPoints
+        FROM MergedHistory
+        GROUP BY fideId
+        ORDER BY score, numPoints DESC, variance DESC
+        LIMIT 100
+        `,
+        (error, results) => resSenderLichessToFide(error, results, res, key),
+      )
+  }
+})
+
+/**
+ * Helper function for above query that sends to the client
+ * @param {if an error occurred, send an error msg} error
+ * @param {send the results} results
+ * @param {response handler} res
+ * @param {pass in key for map (caching)} key
+ */
+ const resSenderLichessToFide = (error, results, res, key) => {
+  if (error) {
+    console.log(error)
+    res.json({ error: error })
+  } else if (results) {
+    myMap5.set(key, results)
+    res.json({ results: results })
+  }
+}
+
+
+
+
+
+
+
 
 
 
