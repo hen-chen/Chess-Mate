@@ -31,6 +31,21 @@ router.get('/player/lichess/:id', (req, res) => {
   )
 })
 
+// Get player by fide id
+router.get('/player/fide/:id', (req, res) => {
+  const { id } = req.params
+  connection.query(
+    `SELECT * FROM FidePlayers WHERE id=${connection.escape(id)}`,
+    (error, results) => {
+      if (results && results.length > 0) {
+        res.send(results[0])
+      } else {
+        res.send({ error })
+      }
+    },
+  )
+})
+
 // Get player histories end points
 // Returns data as { "bullet": [year/month/val], "blitz": [year/month/val], ... }
 // Only lichess has bullet

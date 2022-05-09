@@ -22,7 +22,7 @@ function Login() {
 
       if (data.includes('Success')) {
         // successful login
-        localStorage.setItem('username', username);
+        window.localStorage.setItem('username', username);
         nav('/');
       } else {
         window.alert('Incorrect username or password!');

@@ -30,6 +30,9 @@ app.use('/', complexRouter)
 
 // ========== Users ==========
 
+/**
+ * Registers the user in the database
+ */
 app.post('/users/signup', async (req, res) => {
   console.log(req.body)
   const { username, password } = req.body
@@ -42,6 +45,9 @@ app.post('/users/signup', async (req, res) => {
   }
 })
 
+/**
+ * Checks if the user exists and logs them in.
+ */
 app.post('/users/login', async (req, res) => {
   const { username, password } = req.body
   const result = await lib.login(db, username, password)
@@ -53,12 +59,44 @@ app.post('/users/login', async (req, res) => {
   }
 })
 
+/**
+ * get the liked users given a user
+ */
+app.get('/users/liked/:loggedUser', async (req, res) => {
+  const { loggedUser } = req.params
+  const result = await lib.getLikedPlayers(db, loggedUser)
+
+  if (!result) {
+    res.send('Error: could not get liked user')
+  } else {
+    res.status(200).json({ result })
+  }
+})
+
+/**
+ * put and delete a liked user
+ */
+ app.put('/users/liked/:loggedUser/:username', async (req, res) => {
+  const { loggedUser, username } = req.params
+  await lib.putLikePlayer(db, loggedUser, username)
+  res.send('Success: added liked player')
+})
+
+app.delete('/users/liked/:loggedUser/:username', async (req, res) => {
+  const { loggedUser, username } = req.params
+  await lib.deleteLikePlayer(db, loggedUser, username)
+  res.send('Success: deleted liked player')
+})
+
+
+
 app.listen(process.env.PORT || 8000, async () => {
   try {
     db = await lib.connect(url)
     // await db.collection('Users').deleteMany({})
     console.log('connected to MongoDB')
   } catch (error) {
+    console.log(error)
     console.log('could not connect to MongoDB')
   }
 })

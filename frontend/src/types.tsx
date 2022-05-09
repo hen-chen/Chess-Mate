@@ -12,3 +12,7 @@ export type RatingHistoryPoint = {
 export type RatingHistory = {
   [key: string]: RatingHistoryPoint[];
 };
+
+export type ColorMap = {
+  [key: string]: string;
+};

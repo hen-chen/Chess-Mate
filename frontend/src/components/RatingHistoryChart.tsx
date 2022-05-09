@@ -1,8 +1,26 @@
-import { Chart as ChartJS } from 'chart.js/auto';
-import { Chart } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
-import { useFideHistory, useLichessHistory } from '../datafetching';
-import { RatingHistory, MonthYear, RatingHistoryPoint } from '../types';
+import {
+  useFideHistory,
+  useFideName,
+  useLichessHistory,
+} from '../datafetching';
+import {
+  RatingHistory,
+  MonthYear,
+  RatingHistoryPoint,
+  ColorMap,
+} from '../types';
+import { Chart as ChartJS, ChartOptions, registerables } from 'chart.js';
+import {
+  BLUE_BRIGHT,
+  BLUE_DARK,
+  BLUE_LIGHT,
+  BLUE_MED,
+  ORANGE_DARK,
+  ORANGE_LIGHT,
+  ORANGE_MED,
+} from '../style/colors';
+ChartJS.register(...registerables);
 
 interface RatingHistoryChartProps {
   fideId: string | null;
@@ -10,12 +28,12 @@ interface RatingHistoryChartProps {
 }
 
 const convert = (my: MonthYear): number => {
-  return my.year * 12 + my.month;
+  return my.year * 12 + (my.month - 1); // months stored from 1 to 12 :")
 };
 
 const display = (date: number) => {
   const month = date % 12;
-  const year = date / 12;
+  const year = Math.floor(date / 12);
   const displayMonth = [
     'Jan',
     'Feb',
@@ -30,7 +48,20 @@ const display = (date: number) => {
     'Nov',
     'Dec',
   ];
-  return `${displayMonth[month - 1]} ${year}`;
+  return `${displayMonth[month]} ${year}`;
+};
+
+const fideColors: ColorMap = {
+  blitz: ORANGE_LIGHT,
+  rapid: ORANGE_MED,
+  classical: ORANGE_DARK,
+};
+
+const lichessColors: ColorMap = {
+  bullet: BLUE_BRIGHT,
+  blitz: BLUE_LIGHT,
+  rapid: BLUE_MED,
+  classical: BLUE_DARK,
 };
 
 // Get start and end months to display line graphs
@@ -90,6 +121,11 @@ const getLabels = (start: number, end: number) => {
 };
 
 const RatingHistoryChart = ({ fideId, lichessId }: RatingHistoryChartProps) => {
+  // TODO: better error UI
+  if (!lichessId && !fideId) {
+    return <>No history to display</>;
+  }
+
   const lichessHistory: RatingHistory = lichessId
     ? useLichessHistory(lichessId)
     : {};
@@ -98,16 +134,33 @@ const RatingHistoryChart = ({ fideId, lichessId }: RatingHistoryChartProps) => {
   // console.log(fideData);
 
   const [start, end] = parseStartEnd([lichessHistory, fideHistory]);
-  console.log(start, end);
+  // console.log(start, end);
   const labels = getLabels(start, end);
   const datasets = [];
 
-  for (const type in fideHistory) {
-    const data = parseSeries(fideHistory[type], start, end);
-    // console.log(data)
+  const fideDisplay = fideId ? useFideName(fideId) || fideId : '';
+  const lichessDisplay = lichessId || '';
+
+  if (fideId) {
+    for (const type in fideHistory) {
+      const data = parseSeries(fideHistory[type], start, end);
+      // console.log(data)
+      datasets.push({
+        label: `${fideDisplay} - ${type}`,
+        data,
+        spanGaps: true,
+        borderColor: lichessColors[type],
+      });
+    }
+  }
+
+  for (const type in lichessHistory) {
+    const data = parseSeries(lichessHistory[type], start, end);
     datasets.push({
-      label: `Type: ${type}`,
+      label: `${lichessId} - ${type}`,
       data,
+      spanGaps: true,
+      borderColor: fideColors[type],
     });
   }
 
@@ -116,7 +169,23 @@ const RatingHistoryChart = ({ fideId, lichessId }: RatingHistoryChartProps) => {
     datasets,
   };
 
-  return <Line data={data} />;
+  const title = `Rating History of ${lichessDisplay}${
+    lichessId && fideId ? ' and ' : ''
+  }${fideDisplay}`;
+  const options: ChartOptions = {
+    plugins: {
+      legend: {
+        position: 'right',
+      },
+      title: {
+        display: true,
+        position: 'top',
+        text: title,
+      },
+    },
+  };
+
+  return <Line data={data} options={options} />;
 };
 
 export default RatingHistoryChart;

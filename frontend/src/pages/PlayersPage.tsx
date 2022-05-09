@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 import * as CONSTANTS from '../constants';
@@ -11,11 +11,22 @@ const PlayersPage = () => {
   const [result, setResult] = useState<any>({});
   const [loading, setLoading] = useState(true);
 
+  // likes
+  const [logUser, setLogUser] = useState<string | null>('');
+  const [likes, setLikes] = useState<string[]>([]);
+
   // get the query of the URL
   useEffect(() => {
     setSearchQuery(searchQuery); // to avoid lint error
     const query = searchQuery.get('q');
-    const url = `${CONSTANTS.HOST}/players?p=${query}`; // TODO
+    const url = `${CONSTANTS.HOST}/players?p=${query}`;
+
+    // note the logged user
+    let loggedUser: string | null = null;
+    if (window.localStorage.getItem('username') !== undefined) {
+      loggedUser = window.localStorage.getItem('username');
+      setLogUser(loggedUser);
+    }
 
     // calls the backend
     async function search() {
@@ -27,21 +38,47 @@ const PlayersPage = () => {
           setResult(res.data.results[0]);
         }
       });
+
+      // check if user likes the player
+      if (loggedUser) {
+        const likesUrl = `${CONSTANTS.HOST}/users/liked/${loggedUser}`;
+        await axios
+          .get(likesUrl)
+          .then((res: { data: { result: string[] } }) => {
+            if (!res || !res.data || !res.data || !res.data.result) {
+              setLikes([]);
+            } else {
+              setLikes(res.data.result);
+            }
+          });
+      }
       setLoading(false);
     }
     search();
   }, []);
 
+  const checkIfLiked = (username: string) => likes.includes(username);
+
+  // put in database the newly liked/deleted player
+  const unlikeOrLike = async (username: string) => {
+    const url = `${CONSTANTS.HOST}/users/liked/${logUser}/${username}`;
+    if (!checkIfLiked(username)) {
+      await axios.put(url).then(() => setLikes([...likes, username]))
+    } else {
+      await axios.delete(url).then(() => setLikes(likes.filter(u => u !== username)));
+    }
+  }
+
   return (
     <>
       {/* fetching results, so spinner */}
       {loading && (
-        <>
-          <Spinner animation="border" role="status">
+        <div className="div-center">
+          <Spinner animation="border" role="status" variant="warning">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
           <h1> Loading... </h1>
-        </>
+        </div>
       )}
 
       {!loading && (
@@ -51,10 +88,24 @@ const PlayersPage = () => {
           <Link to="/">Back to Home!</Link>
 
           <br />
-          <h2> Results: </h2>
-          <hr />
           {result ? (
             <>
+              <h2> Results for {result.username} </h2>
+              <hr />
+
+              {/* display favorite button */}
+              {logUser && <Button
+                variant={
+                  checkIfLiked(result.username) ? 'warning' : 'outline-warning'
+                }
+                size="sm"
+                onClick={() => {
+                  unlikeOrLike(result.username);
+                }}
+              >
+                Favorite ⭑
+              </Button>}
+
               {/* result={result} doesn't work for some reason */}
               <PlayerResults {...result} />
             </>
