@@ -29,10 +29,12 @@ const GamesPage = () => {
   }, []);
 
   return (
-    <div className="container-sm border">
+    <div style={{ margin: 30, padding: 20 }}>
       <div className="row">
         <div className="col-3">
-          <h3>Find Players with Similar Openings</h3>
+          <h3 style={{ marginBottom: 20 }}>
+            Find Players with Similar Openings
+          </h3>
           {similar === null || similar.length === 0 ? (
             <button
               className="btn btn-primary"
@@ -42,7 +44,7 @@ const GamesPage = () => {
                 getSimilarOpenings();
               }}
             >
-              {similar === null ? <div className="spinner-border" /> : `Find`}
+              {similar === null ? <div className="spinner-border" /> : `Go!`}
             </button>
           ) : (
             <ul className="pagination">
@@ -71,7 +73,7 @@ const GamesPage = () => {
               </li>
             </ul>
           )}
-          <ul>
+          <ul style={{ overflowY: 'scroll', maxHeight: '45vh' }}>
             {similar
               ?.slice(page * 100, (page + 1) * 100)
               .map(({ username }) => (
@@ -82,20 +84,16 @@ const GamesPage = () => {
           </ul>
         </div>
         <div className="col-9">
-          <h3>{`${user}'s Games`}</h3>
+          <h3 style={{ marginBottom: 20 }}>{`Games of ${user}`}</h3>
           <div className="d-flex flex-column align-items-stretch">
             {gamePreviews.map(({ id, whiteId, blackId, timeControl, date }) => (
               <div key={id}>
-                <div>
-                  {timeControl} vs. {whiteId === user ? blackId : whiteId} on{' '}
-                  {date}
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => nav(`/game/${id}`)}
-                  >
-                    See Game
-                  </button>
-                </div>
+                <li>
+                  <a href={`/game/${id}`}>
+                    {timeControl} vs. {whiteId === user ? blackId : whiteId} on{' '}
+                    {date}
+                  </a>
+                </li>
               </div>
             ))}
           </div>
