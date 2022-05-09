@@ -9,13 +9,13 @@ const chess = new Chess();
 
 const PgnDisplay = ({
   boardLength,
-  pgn,
+  parsed,
 }: {
   boardLength: number;
-  pgn: string;
+  parsed: any;
 }) => {
   const tileLength = boardLength / 8;
-  const [parsed] = pgnParser.parse(pgn);
+  console.log(parsed);
   const [moves] = useState(parsed.moves.map((e: any) => e.move));
   const [move, setMove] = useState(0);
   return (
@@ -54,7 +54,7 @@ const PgnDisplay = ({
               const col = square.charCodeAt(0) - 97;
               return (
                 <image
-                  href={`${color}${type}.svg`}
+                  href={`../${color}${type}.svg`}
                   key={square}
                   x={col * tileLength}
                   y={row * tileLength}

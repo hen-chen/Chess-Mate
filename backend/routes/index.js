@@ -107,10 +107,25 @@ router.get('/sortFidePlayers/:country', (req, res) => {
 router.get('/getGames/:id', (req, res) => {
   const { id } = req.params
   connection.query(
-    `SELECT g.id  
+    `SELECT g.id, g.date, g.timeControl, g.whiteId, g.blackId 
   FROM LichessGames g, LichessPlayers p
   WHERE p.id = '${id}'
   AND (g.whiteId = p.id OR g.blackId = p.id)`,
+    (error, results) => resSender(error, results, res),
+  )
+})
+
+/**
+ * Lichess
+ * Given user, find all the game ids that the user `id` played
+ * @param id user id
+ */
+router.get('/getGame/:gameid', (req, res) => {
+  const { gameid } = req.params
+  connection.query(
+    `SELECT g.date, g.time, g.timeControl, g.whiteId, g.blackId, g.whiteRating, g.blackRating, g.pgn  
+  FROM LichessGames g
+  WHERE g.id = '${gameid}'`,
     (error, results) => resSender(error, results, res),
   )
 })

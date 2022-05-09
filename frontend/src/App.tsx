@@ -10,6 +10,7 @@ import PoorGames from './pages/PoorGames';
 
 import './App.css';
 import RatingHistory from './pages/RatingHistory';
+import GamePage from './pages/GamePage';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="home" element={<HomePage />} />
         <Route path="players" element={<PlayersPage />} />
-        <Route path="games" element={<GamesPage />} />
+        <Route path="games/:user" element={<GamesPage />} />
+        <Route path="game/:id" element={<GamePage />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="history" element={<RatingHistory />} />
