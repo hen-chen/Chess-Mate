@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mysql = require('mysql')
-const _ = require('lodash/core')
+const _ = require('lodash')
 
 // private connection credentials to connect to our database
 const config = require('../config.json')
@@ -39,21 +39,22 @@ const getRatingHistory = (type, res, id) => {
   idType = type === 'lichess' ? 'lichessId' : 'fideId'
   connection.query(
     `SELECT * FROM ${tableName} WHERE ${idType}=${connection.escape(id)}`,
-  ),
-    // TODO: untested
     (error, results) => {
       if (results) {
         const groupedResults = _(results)
           .groupBy('type')
-          .map(type, (val) => {
-            const { month, year, rating } = val
-            return { month, year, rating }
+          .mapValues(dataPoints => {
+            return dataPoints.map(point => {
+              const {year, month, rating} = point
+              return {year, month, rating}
+            })
           })
         res.send(groupedResults)
       } else {
         res.send({ error })
       }
-    }
+    },
+  )
 }
 
 router.get('/history/lichess/:id', (req, res) => {

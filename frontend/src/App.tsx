@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 
 import './App.css';
+import RatingHistory from './pages/RatingHistory';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="games" element={<GamesPage />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="history" element={<RatingHistory/>}/>
       </Routes>
     </BrowserRouter>
   );
