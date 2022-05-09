@@ -16,6 +16,7 @@ const connect = async (url) => {
   }
 }
 
+// adds a user to the database
 const addUser = async (db, username, password) => {
   try {
     const userExists = await db.collection('Users').findOne({ username })
@@ -30,6 +31,7 @@ const addUser = async (db, username, password) => {
   }
 }
 
+// Logs the user in, making sure it username, password match
 const login = async (db, username, password) => {
   try {
     const userExists = await db
@@ -44,6 +46,11 @@ const login = async (db, username, password) => {
   }
 }
 
+/**
+ * Get the liked playrs of the loggedUser
+ * @param {*} db 
+ * @param {*} loggedUser 
+ */
 const getLikedPlayers = async (db, loggedUser) => {
   try {
     const likedPlayers = await db
@@ -56,6 +63,12 @@ const getLikedPlayers = async (db, loggedUser) => {
   }
 }
 
+/**
+ * Add a user to the loggedUser's liked list
+ * @param {*} db 
+ * @param {*} loggedUser 
+ * @param {*} username 
+ */
 const putLikePlayer = async (db, loggedUser, username) => {
   try {
     return await db.collection('Users').update({ username: loggedUser }, { $push: { 'liked': username }});
@@ -64,6 +77,12 @@ const putLikePlayer = async (db, loggedUser, username) => {
   }
 }
 
+/**
+ * Delete a user from the loggedUser's liked list
+ * @param {*} db 
+ * @param {*} loggedUser 
+ * @param {*} username 
+ */
 const deleteLikePlayer = async (db, loggedUser, username) => {
   try {
     return await db.collection('Users').update({ username: loggedUser }, { $pull: { 'liked': username }});
@@ -71,8 +90,6 @@ const deleteLikePlayer = async (db, loggedUser, username) => {
     console.log('Could not put like player');
   }
 }
-
-// TODO delete player
 
 module.exports = {
   connect,

@@ -1,7 +1,0 @@
-{
-  "rds_host": "fluffydoge.cgutofy9jpld.us-east-1.rds.amazonaws.com",
-  "rds_port": "3306",
-  "rds_user": "admin",
-  "rds_password": "meowmeow",
-  "rds_db": "Chess"
-}
