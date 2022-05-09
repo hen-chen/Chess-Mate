@@ -6,14 +6,14 @@ const mysql = require('mysql')
 const config = require('../config.json')
 
 // connection
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
+  connectionLimit: 20,
   host: config.rds_host,
   user: config.rds_user,
   password: config.rds_password,
   port: config.rds_port,
   database: config.rds_db,
 })
-connection.connect()
 
 // Return a list of 100 usrs with similar rating history
 router.get('/fidetolichesshistory/', (req, res) => {

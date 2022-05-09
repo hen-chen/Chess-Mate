@@ -7,14 +7,14 @@ const _ = require('lodash')
 const config = require('../config.json')
 
 // connection
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
+  connectionLimit: 20,
   host: config.rds_host,
   user: config.rds_user,
   password: config.rds_password,
   port: config.rds_port,
   database: config.rds_db,
 })
-connection.connect()
 
 // Get player by lichess id
 router.get('/player/lichess/:id', (req, res) => {
