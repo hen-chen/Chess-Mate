@@ -20,11 +20,11 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'prefer-destructuring': ['warn', { object: true, array: true }],
-    'prefer-template': 'error',
-    eqeqeq: 'error',
-    'no-duplicate-imports': 'error',
-    'prefer-arrow-callback': 'error',
+    'prefer-template': 'warn',
+    eqeqeq: 'warn',
+    'no-duplicate-imports': 'warn',
+    'prefer-arrow-callback': 'warn',
     'react/react-in-jsx-scope': 'off',
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 'warn',
   },
 };
