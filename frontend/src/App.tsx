@@ -5,6 +5,7 @@ import GamesPage from './pages/GamesPage';
 import HomePage from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import TopGames from './pages/TopGames';
 
 import './App.css';
 import RatingHistory from './pages/RatingHistory';
@@ -20,6 +21,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="history" element={<RatingHistory />} />
+        <Route path="topGamesPlayers" element={<TopGames />} />
       </Routes>
     </BrowserRouter>
   );

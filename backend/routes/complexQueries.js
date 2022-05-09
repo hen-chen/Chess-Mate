@@ -113,7 +113,7 @@ router.get('/topGamesCountryPlayers/:elo', (req, res) => {
       SELECT *
       FROM LichessPlayers lp
       WHERE lp.country IN (SELECT * FROM Countries)
-      ORDER BY lp.fideRating, lp.country;
+      ORDER BY lp.fideRating DESC;
       `,
         (error, results) => resSenderTopGame(error, results, res, elo),
       )
