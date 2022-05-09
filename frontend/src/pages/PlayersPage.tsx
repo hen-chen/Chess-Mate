@@ -63,11 +63,13 @@ const PlayersPage = () => {
   const unlikeOrLike = async (username: string) => {
     const url = `${CONSTANTS.HOST}/users/liked/${logUser}/${username}`;
     if (!checkIfLiked(username)) {
-      await axios.put(url).then(() => setLikes([...likes, username]))
+      await axios.put(url).then(() => setLikes([...likes, username]));
     } else {
-      await axios.delete(url).then(() => setLikes(likes.filter(u => u !== username)));
+      await axios
+        .delete(url)
+        .then(() => setLikes(likes.filter((u) => u !== username)));
     }
-  }
+  };
 
   return (
     <>
@@ -94,17 +96,21 @@ const PlayersPage = () => {
               <hr />
 
               {/* display favorite button */}
-              {logUser && <Button
-                variant={
-                  checkIfLiked(result.username) ? 'warning' : 'outline-warning'
-                }
-                size="sm"
-                onClick={() => {
-                  unlikeOrLike(result.username);
-                }}
-              >
-                Favorite ⭑
-              </Button>}
+              {logUser && (
+                <Button
+                  variant={
+                    checkIfLiked(result.username)
+                      ? 'warning'
+                      : 'outline-warning'
+                  }
+                  size="sm"
+                  onClick={() => {
+                    unlikeOrLike(result.username);
+                  }}
+                >
+                  Favorite ⭑
+                </Button>
+              )}
 
               {/* result={result} doesn't work for some reason */}
               <PlayerResults {...result} />
