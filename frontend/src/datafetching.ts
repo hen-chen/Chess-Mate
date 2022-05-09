@@ -39,3 +39,27 @@ export const useFideName = (fideId: string) => {
     return `${firstName} ${lastName}`;
   }
 };
+
+export const useSimilarHistToFide = (
+  fideId: string,
+  lichessType: string,
+  fideType: string,
+) => {
+  const { data } = useSWR(
+    `${BACKEND_HOST}/fidetolichesshistory/?fideId=${fideId}&lichessType=${lichessType}&fideType=${fideType}`,
+    fetcher,
+  );
+  return data;
+};
+
+export const useSimilarHistToLichess = (
+  lichessId: string,
+  lichessType: string,
+  fideType: string,
+) => {
+  const { data } = useSWR(
+    `${BACKEND_HOST}/fidetolichesshistory/?lichessId=${lichessId}&lichessType=${lichessType}&fideType=${fideType}`,
+    fetcher,
+  );
+  return data;
+};

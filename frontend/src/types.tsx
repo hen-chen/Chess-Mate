@@ -16,3 +16,10 @@ export type RatingHistory = {
 export type ColorMap = {
   [key: string]: string;
 };
+
+export type SimilarHistResult = {
+  lichessId: string;
+  score: number;
+  variance: number;
+  numPoints: number;
+};
