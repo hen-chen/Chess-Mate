@@ -88,7 +88,8 @@ const PlayersPage = () => {
         <div className="container">
           <h1> Player Review </h1>
           <Link to="/">Back to Home!</Link>
-
+          <br />
+          <Link to={`/games/${searchQuery.get('q')}`}>View Games</Link>
           <br />
           {result ? (
             <>

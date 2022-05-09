@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import TopGames from './pages/TopGames';
 import PoorGames from './pages/PoorGames';
+import Navbar from './components/Navbar';
 
 import './App.css';
 import RatingHistory from './pages/RatingHistory';
@@ -15,6 +16,7 @@ import GamePage from './pages/GamePage';
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="home" element={<HomePage />} />

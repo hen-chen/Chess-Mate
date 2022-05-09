@@ -38,35 +38,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <>
-      <h1>Chess Mate</h1>
-
-      {/* show stuff if user is logged in or not */}
-      {logUser ? (
-        <>
-          <h2>Welcome {logUser} </h2>
-          <button
-            type="button"
-            className="btn mx-1 btn-danger"
-            onClick={() => {
-              window.localStorage.removeItem('username');
-              nav('/login');
-              window.alert('Logout successful!');
-            }}
-          >
-            Logout
-          </button>
-        </>
-      ) : (
-        <button
-          type="button"
-          className="btn mx-1 btn-primary"
-          onClick={() => nav('/login')}
-        >
-          Login to like users!
-        </button>
-      )}
-
+    <div className="container-sm p-4 d-flex flex-column align-items-start">
       {/* the search bar for players */}
       <SearchBar />
 
@@ -79,7 +51,7 @@ const HomePage = () => {
           })}
         </>
       )}
-    </>
+    </div>
   );
 };
 

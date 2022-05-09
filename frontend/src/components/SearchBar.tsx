@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form } from 'react-bootstrap';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const nav = useNavigate();
 
   return (
-    <div className="container">
-      <Form>
-        <Form.Control
-          type="text"
-          onChange={(e) => setSearchQuery(e.target.value)}
+    <form className="row g-3">
+      <div className="col-auto">
+        <input
+          className="form-control "
+          type="search"
           placeholder="Search Player (e.g. -tristan-)"
+          onChange={(e) => setSearchQuery(e.target.value)}
           onKeyPress={(e) => {
             if (e.code === 'Enter' && searchQuery.trim().length) {
               nav(`/players?q=${searchQuery}`);
             }
           }}
         />
+      </div>
+      <div className="col-auto">
         <button
           disabled={!searchQuery.trim().length}
-          className="btn btn-info btn-small"
-          type="button"
+          className="btn btn-outline-success my-2 my-sm-0"
+          type="submit"
           onClick={() => nav(`/players?q=${searchQuery}`)}
         >
           Search
         </button>
-      </Form>
-    </div>
+      </div>
+    </form>
   );
 };
 
