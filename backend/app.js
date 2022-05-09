@@ -88,13 +88,13 @@ app.delete('/users/liked/:loggedUser/:username', async (req, res) => {
   res.send('Success: deleted liked player')
 })
 
+// END ROUTES
 
-
+// Listening
 app.listen(process.env.PORT || 8000, async () => {
   try {
     db = await lib.connect(url)
-    // await db.collection('Users').deleteMany({})
-    console.log('connected to MongoDB')
+    console.log('Connected to MongoDB')
   } catch (error) {
     console.log(error)
     console.log('could not connect to MongoDB')
