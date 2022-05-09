@@ -124,5 +124,10 @@ CREATE TABLE FideIdLookup (
 """
 
 indexForFasterLookup = """
-CREATE INDEX NameIndex ON FidePlayers (lastName, firstName)
+CREATE INDEX NameIndex ON FidePlayers (lastName, firstName);
+CREATE INDEX lichess_rating ON LichessHistory (rating);
+CREATE INDEX fide_rating ON FideHistory (rating);
+CREATE INDEX lichess_username ON LichessPlayers (username);
+CREATE INDEX lichess_game ON LichessGames (eco);
+CREATE INDEX fide_game ON FideGames (eco);
 """
