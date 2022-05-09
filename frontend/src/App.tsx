@@ -6,6 +6,7 @@ import HomePage from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import TopGames from './pages/TopGames';
+import PoorGames from './pages/PoorGames';
 
 import './App.css';
 import RatingHistory from './pages/RatingHistory';
@@ -21,7 +22,8 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="history" element={<RatingHistory />} />
-        <Route path="topGamesPlayers" element={<TopGames />} />
+        <Route path="topGames" element={<TopGames />} />
+        <Route path="poorGames" element={<PoorGames />} />
       </Routes>
     </BrowserRouter>
   );

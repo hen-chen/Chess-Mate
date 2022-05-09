@@ -4,36 +4,35 @@ import { Spinner, Card, Button } from 'react-bootstrap';
 
 import * as CONSTANTS from '../constants';
 
-const TopGames = () => {
-  // top game query
+const PoorGames = () => {
   const [elo, setElo] = useState('');
-  const [topGamesResults, setTopGamesResults] = useState<any>([]);
-  const [topGamesLoading, setTopGamesLoading] = useState(false);
+  const [poorGamesResults, setPoorGamesResults] = useState<any>([]);
+  const [poorGamesLoading, setPoorGamesLoading] = useState(false);
 
-  const topGames = async () => {
-    const url = `${CONSTANTS.HOST}/topGamesCountryPlayers/${elo}`;
+  const poorGames = async () => {
+    const url = `${CONSTANTS.HOST}/poorPlayers/${elo}`;
     await axios.get(url).then((res: { data: { results: any[] } }) => {
       if (!res || !res.data || !res.data || !res.data.results) {
-        setTopGamesResults([]);
+        setPoorGamesResults([]);
       } else {
-        setTopGamesResults(res.data.results);
+        setPoorGamesResults(res.data.results);
       }
     });
-    setTopGamesLoading(false);
+    setPoorGamesLoading(false);
   };
 
   return (
     <div className="container">
       <h3>
-        Find all the countries that have top players. Get all the players that
-        are in these countries. Specify the elo for the threshold of the elo.
+        Find some poor level games (sum of elo is less than 2400), and determine
+        the playtime of all the players playtime.
       </h3>
 
       <br />
 
-      {topGamesLoading ? (
+      {poorGamesLoading ? (
         <div className="div-center">
-          <Spinner animation="border" role="status" variant="danger">
+          <Spinner animation="border" role="status" variant="info">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
           <h1> Loading results...</h1>
@@ -46,11 +45,11 @@ const TopGames = () => {
           />
 
           <Button
-            variant="info"
+            variant="danger"
             disabled={parseInt(elo) <= 0}
             onClick={() => {
-              setTopGamesLoading(true);
-              topGames();
+              setPoorGamesLoading(true);
+              poorGames();
             }}
           >
             Submit Elo!
@@ -58,16 +57,17 @@ const TopGames = () => {
         </>
       )}
 
-      {topGamesResults &&
-        topGamesResults.map(
+      {poorGamesResults &&
+        poorGamesResults.map(
           (
-            user: { username: any; country: any; fideRating: any },
+            user: { username: any; totalPlayTime: number; fideRating: any },
             i: number,
           ) => {
-            const { username, country, fideRating } = user;
+            const { username, totalPlayTime, fideRating } = user;
             return (
               <Card key={i} style={{ marginBottom: '1rem' }}>
-                {username} - From {country} - FIDERating: {fideRating}
+                {username} - Hours Played: {Math.ceil(totalPlayTime / 3600)} -
+                FIDERating: {fideRating}
               </Card>
             );
           },
@@ -76,4 +76,4 @@ const TopGames = () => {
   );
 };
 
-export default TopGames;
+export default PoorGames;
