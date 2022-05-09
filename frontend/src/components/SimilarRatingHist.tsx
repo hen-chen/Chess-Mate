@@ -37,8 +37,8 @@ const SimilarRatingHist = ({ id }: SimilarRatingHistProps) => {
           <td>{`${firstName} ${lastName}`}</td>
           <td>{rating}</td>
           <td>{score}</td>
-          <td>{variance}</td>
           <td>{numPoints}</td>
+          <td>{variance}</td>
         </tr>
       );
     },
