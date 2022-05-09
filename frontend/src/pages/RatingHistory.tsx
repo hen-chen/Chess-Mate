@@ -1,7 +1,12 @@
+import { useSearchParams } from 'react-router-dom';
 import RatingHistoryChart from '../components/RatingHistoryChart';
 
 const RatingHistory = () => {
-  return <RatingHistoryChart lichessId="-tristan-" fideId="1000012" />;
+  const [searchQuery, ] = useSearchParams();
+  const fideId = searchQuery.get("fideId")
+  const lichessId = searchQuery.get("lichessId")
+
+  return <RatingHistoryChart lichessId={lichessId} fideId={fideId}/>;
 };
 
 export default RatingHistory;

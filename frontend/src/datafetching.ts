@@ -1,7 +1,8 @@
 import useSWR from 'use-swr';
 import { RatingHistory, MonthYear, RatingHistoryPoint } from './types';
 
-const BACKEND_HOST = 'localhost:8000';
+const BACKEND_HOST = 'http://localhost:8000';
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const convert = (my: MonthYear): number => {
   return my.year * 12 + my.month;
@@ -52,28 +53,34 @@ const getSeries = (
   if (series === []) return series;
 
   for (let my = start; my <= end; my++) {
-    const point = series.find((point) => convert(point) === my)
+    const point = series.find((point) => convert(point) === my);
     if (point) {
       newSeries.push(point.rating);
     } else {
-      newSeries.push(null)
+      newSeries.push(null);
     }
   }
 };
 
 // Backend returns sorted history
 export const useLichessHistory = (lichessId: string) => {
-  const { data, error } = useSWR(`${BACKEND_HOST}/history/lichess/${lichessId}`, fetch)
+  const { data, error } = useSWR(
+    `${BACKEND_HOST}/history/lichess/${lichessId}`,
+    fetcher,
+  );
   if (!data) {
-    console.error(error)
+    console.error(error);
   }
-  return data
+  return data;
 };
 
 export const useFideHistory = (fideId: string) => {
-  const { data, error } = useSWR(`${BACKEND_HOST}/history/lichess/${fideId}`, fetch);
+  const { data, error } = useSWR(
+    `${BACKEND_HOST}/history/fide/${fideId}`,
+    fetcher,
+  );
   if (!data) {
-    console.error(error)
+    console.error(error);
   }
-  return data
-}
+  return data;
+};

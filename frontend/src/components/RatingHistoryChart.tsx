@@ -1,19 +1,16 @@
 import { useFideHistory, useLichessHistory } from '../datafetching';
 
 interface RatingHistoryChartProps {
-  fideId?: string;
-  lichessId?: string;
+  fideId: string | null;
+  lichessId: string | null;
 }
 
-
-const RatingHistoryChart = ({
-  fideId,
-  lichessId
-}: RatingHistoryChartProps) => {
+const RatingHistoryChart = ({ fideId, lichessId }: RatingHistoryChartProps) => {
   // const labels = Utils.months({ count: 7 });
   const lichessData = lichessId && useLichessHistory(lichessId);
-  const fideData = fideId && useFideHistory(fideId);
-  console.log(lichessData)
+  const fideData = useFideHistory(fideId || '');
+  console.log('FIDE' + fideId);
+  console.log(fideData);
 
   // const data = {
   //   labels: labels,
@@ -29,7 +26,7 @@ const RatingHistoryChart = ({
   // };
 
   // return <Line data={data} />;
-  return <></>
+  return <></>;
 };
 
 export default RatingHistoryChart;

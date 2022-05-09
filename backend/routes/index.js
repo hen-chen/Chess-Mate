@@ -38,15 +38,17 @@ const getRatingHistory = (type, res, id) => {
   tableName = type === 'lichess' ? 'LichessHistory' : 'FideHistory'
   idType = type === 'lichess' ? 'lichessId' : 'fideId'
   connection.query(
-    `SELECT * FROM ${tableName} WHERE ${idType}=${connection.escape(id)}`,
+    `SELECT * FROM ${tableName} WHERE ${idType}=${connection.escape(
+      id,
+    )} ORDER BY year, month`,
     (error, results) => {
       if (results) {
         const groupedResults = _(results)
           .groupBy('type')
-          .mapValues(dataPoints => {
-            return dataPoints.map(point => {
-              const {year, month, rating} = point
-              return {year, month, rating}
+          .mapValues((dataPoints) => {
+            return dataPoints.map((point) => {
+              const { year, month, rating } = point
+              return { year, month, rating }
             })
           })
         res.send(groupedResults)
