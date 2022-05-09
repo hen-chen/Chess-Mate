@@ -1,6 +1,6 @@
 import { Table } from 'react-bootstrap';
-import { useSimilarHistToFide } from '../datafetching';
-import { SimilarHistResult } from '../types';
+import { useSimilarHistToFide, useSimilarHistToLichess } from '../datafetching';
+import { SimilarFideHistResult, SimilarHistResult } from '../types';
 
 interface SimilarRatingHistProps {
   id: string;
@@ -8,23 +8,34 @@ interface SimilarRatingHistProps {
 }
 
 const SimilarRatingHist = ({ id }: SimilarRatingHistProps) => {
-  const { results } = useSimilarHistToFide(id, 'classical', 'blitz');
+  const data = useSimilarHistToLichess(id, 'classical', 'blitz');
 
-  if (!results) return <>Finding players with similar rating histories...</>;
+  if (!data) return <>Finding players with similar rating histories...</>;
+
+  const { results } = data;
 
   if (results && !Array.isArray(results)) {
     console.error(results);
+    return <>Error</>;
   }
 
   const tableRows = results.map(
-    ({ lichessId, score, variance, numPoints }: SimilarHistResult) => {
+    ({
+      id: fideId,
+      score,
+      variance,
+      numPoints,
+      firstName,
+      lastName,
+      rating,
+    }: SimilarFideHistResult) => {
       return (
-        <tr key={lichessId}>
+        <tr key={fideId}>
           <td>
-            <a href={`/history?lichessId=${lichessId}&fideId=${id}`}>
-              {lichessId}
-            </a>
+            <a href={`/history?lichessId=${id}&fideId=${fideId}`}>{fideId}</a>
           </td>
+          <td>{`${firstName} ${lastName}`}</td>
+          <td>{rating}</td>
           <td>{score}</td>
           <td>{variance}</td>
           <td>{numPoints}</td>
@@ -35,11 +46,14 @@ const SimilarRatingHist = ({ id }: SimilarRatingHistProps) => {
 
   return (
     <>
+      <h3>Similar FIDE Players</h3>
       <Table>
         <thead>
           <tr>
-            <th>Username</th>
-            <th>Score</th>
+            <th>Fide ID</th>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Difference Score</th>
             <th># of Points</th>
             <th>Variance</th>
           </tr>

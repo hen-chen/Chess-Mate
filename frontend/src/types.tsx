@@ -18,8 +18,14 @@ export type ColorMap = {
 };
 
 export type SimilarHistResult = {
-  lichessId: string;
+  id: string;
   score: number;
   variance: number;
   numPoints: number;
+  rating: number;
 };
+
+export interface SimilarFideHistResult extends SimilarHistResult {
+  firstName: string;
+  lastName: string;
+}

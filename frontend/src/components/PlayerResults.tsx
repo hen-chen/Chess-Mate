@@ -2,10 +2,13 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 
 import { Player } from '../interfaces/Player';
+import SimilarRatingHist from './SimilarRatingHist';
 
 const PlayerResults = (result: Player): JSX.Element => {
   return (
     <>
+      <SimilarRatingHist id={result.id} />
+
       <h3>Background:</h3>
       {result.bio && <p className="h5">Bio: {result.bio}</p>}
       {result.country && <p className="h5">Country: {result.country}</p>}

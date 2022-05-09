@@ -1,4 +1,5 @@
 export interface Player {
+  id: string;
   username: string;
   bio: string | null;
   country: string | null;

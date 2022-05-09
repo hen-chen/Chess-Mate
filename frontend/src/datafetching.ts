@@ -58,7 +58,7 @@ export const useSimilarHistToLichess = (
   fideType: string,
 ) => {
   const { data } = useSWR(
-    `${BACKEND_HOST}/fidetolichesshistory/?lichessId=${lichessId}&lichessType=${lichessType}&fideType=${fideType}`,
+    `${BACKEND_HOST}/lichesstofidehistory/?lichessId=${lichessId}&lichessType=${lichessType}&fideType=${fideType}`,
     fetcher,
   );
   return data;

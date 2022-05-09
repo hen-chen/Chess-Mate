@@ -35,26 +35,19 @@ router.get('/fidetolichesshistory/', (req, res) => {
       connection.query(
         `
         WITH MergedHistory AS (
-          SELECT lichessId, L.month AS month, L.year AS year, L.rating AS lichessRating, F.rating AS fideRating, fideId
-          FROM (SELECT * FROM LichessHistory WHERE lichessId = "${lichessId}" AND type = "${lichessType}") L
-                  JOIN (SELECT * FROM FideHistory WHERE type = "${fideType}") F
-                        ON L.year = F.year AND L.month = F.month
+            SELECT fideId, F.month AS month, F.year AS year, F.rating AS fideRating, L.rating AS lichessRating, lichessId
+            FROM (SELECT * FROM FideHistory WHERE fideId = ${fideId} AND type = "${fideType}") F
+                    JOIN (SELECT * FROM LichessHistory WHERE type = "${lichessType}") L 
+                    ON F.year = L.year AND F.month = L.month
         )
-        SELECT id, score, variance, numPoints, firstName, lastName
-        FROM (
-                SELECT fideId AS id,
-                        ABS(AVG(fideRating - lichessRating) - ${threshold}) AS score,
-                        VARIANCE(fideRating - lichessRating - ${threshold}) AS variance,
-                        COUNT(*)                                            AS numPoints
-                FROM MergedHistory
-                GROUP BY fideId
-            ) Scores
-                NATURAL JOIN (
-            SELECT id, firstName, lastName
-            FROM FidePlayers
-        ) Players
-          ORDER BY score, numPoints DESC, variance DESC
-          LIMIT ${limit || 10}
+        SELECT lichessId,
+              ABS(AVG(lichessRating - fideRating) - ${threshold}) AS score,
+              VARIANCE(lichessRating - fideRating - ${threshold}) AS variance,
+              COUNT(*)                                            AS numPoints
+        FROM MergedHistory
+        GROUP BY lichessId
+        ORDER BY score, numPoints DESC, variance DESC
+        LIMIT 10
         `,
         (error, results) => resSenderRatingHistory(error, results, res, key),
       )
@@ -309,20 +302,27 @@ router.get('/lichesstofidehistory/', (req, res) => {
   } else {
       connection.query(
         `
-          WITH MergedHistory AS (
-            SELECT lichessId, L.month AS month, L.year AS year, L.rating AS lichessRating, F.rating AS fideRating, fideId
-            FROM (SELECT * FROM LichessHistory WHERE lichessId = "${lichessId}" AND type = "${lichessType}") L
-                    JOIN (SELECT * FROM FideHistory WHERE type = "${fideType}") F 
-                    ON L.year = F.year AND L.month = F.month
+        WITH MergedHistory AS (
+          SELECT lichessId, L.month AS month, L.year AS year, L.rating AS lichessRating, F.rating AS fideRating, fideId
+          FROM (SELECT * FROM LichessHistory WHERE lichessId = "${lichessId}" AND type = "${lichessType}") L
+                  JOIN (SELECT * FROM FideHistory WHERE type = "${fideType}") F
+                        ON L.year = F.year AND L.month = F.month
         )
-        SELECT fideId AS id,
-              ABS(AVG(fideRating - lichessRating) - ${threshold}) AS score,
-              VARIANCE(fideRating - lichessRating - ${threshold}) AS variance,
-              COUNT(*)                                            AS numPoints
-        FROM MergedHistory
-        GROUP BY fideId
-        ORDER BY score, numPoints DESC, variance DESC
-        LIMIT ${limit || 10}
+        SELECT id, score, variance, numPoints, firstName, lastName, classicalRating AS rating
+        FROM (
+                SELECT fideId AS id,
+                        ABS(AVG(fideRating - lichessRating) - ${threshold}) AS score,
+                        VARIANCE(fideRating - lichessRating - ${threshold}) AS variance,
+                        COUNT(*)                                            AS numPoints
+                FROM MergedHistory
+                GROUP BY fideId
+            ) Scores
+                NATURAL JOIN (
+            SELECT id, firstName, lastName, classicalRating
+            FROM FidePlayers
+        ) Players
+          ORDER BY score, numPoints DESC, variance DESC
+          LIMIT ${limit || 10}
         `,
         (error, results) => resSenderLichessToFide(error, results, res, key),
       )
