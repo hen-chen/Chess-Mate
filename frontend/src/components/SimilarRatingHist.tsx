@@ -8,7 +8,7 @@ interface SimilarRatingHistProps {
 }
 
 const SimilarRatingHist = ({ id }: SimilarRatingHistProps) => {
-  const data = useSimilarHistToLichess(id, 'classical', 'blitz');
+  const data = useSimilarHistToLichess(id, 'blitz', 'classical');
 
   if (!data) return <>Finding players with similar rating histories...</>;
 

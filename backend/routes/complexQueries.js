@@ -27,7 +27,7 @@ router.get('/fidetolichesshistory/', (req, res) => {
   // example params:
   // const lichessType = "'blitz'"
   // const fideType = "'classical'"
-  const threshold = 500
+  const threshold = 400
 
   if (myMap4.has(key)) {
     res.json({results: myMap4.get(key)})
@@ -295,7 +295,7 @@ router.get('/lichesstofidehistory/', (req, res) => {
   // example params:
   // const lichessType = "'blitz'"
   // const fideType = "'classical'"
-  const threshold = 500
+  const threshold = 400
 
   if (myMap5.has(key)) {
     res.json({results: myMap5.get(key)})
@@ -311,8 +311,8 @@ router.get('/lichesstofidehistory/', (req, res) => {
         SELECT id, score, variance, numPoints, firstName, lastName, classicalRating AS rating
         FROM (
                 SELECT fideId AS id,
-                        ABS(AVG(fideRating - lichessRating) - ${threshold}) AS score,
-                        VARIANCE(fideRating - lichessRating - ${threshold}) AS variance,
+                        ABS(AVG(fideRating - lichessRating) + ${threshold}) AS score,
+                        VARIANCE(fideRating - lichessRating + ${threshold}) AS variance,
                         COUNT(*)                                            AS numPoints
                 FROM MergedHistory
                 GROUP BY fideId
