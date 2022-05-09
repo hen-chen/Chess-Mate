@@ -56,10 +56,7 @@ app.post('/users/login', async (req, res) => {
 app.listen(process.env.PORT || 8000, async () => {
   try {
     db = await lib.connect(url)
-    await db.collection('Users').remove({})
-    await db
-      .collection('Users')
-      .insertOne({ username: 'Alice', password: 'hi' })
+    // await db.collection('Users').deleteMany({})
     console.log('connected to MongoDB')
   } catch (error) {
     console.log('could not connect to MongoDB')

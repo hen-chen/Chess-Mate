@@ -1,2 +1,2 @@
 // for Accessing Backend
-export const HOST = 'http://localhost:8000'; // localhost
+export const HOST = 'https://pacific-cove-61696.herokuapp.com'; // http://localhost:8000
