@@ -6,7 +6,11 @@ const RatingHistory = () => {
   const fideId = searchQuery.get('fideId');
   const lichessId = searchQuery.get('lichessId');
 
-  return <RatingHistoryChart lichessId={lichessId} fideId={fideId} />;
+  return (
+    <div style={{ margin: 20, maxHeight: 600 }}>
+      <RatingHistoryChart lichessId={lichessId} fideId={fideId} />
+    </div>
+  );
 };
 
 export default RatingHistory;

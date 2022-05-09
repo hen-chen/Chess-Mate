@@ -6,7 +6,6 @@ import PgnDisplay from '../components/PgnDisplay';
 import * as CONSTANTS from '../constants';
 // @ts-ignore
 import { parse } from 'pgn-parser';
-import { access } from 'fs';
 
 const GamePage = () => {
   const { id } = useParams();
@@ -31,7 +30,7 @@ const GamePage = () => {
   console.log(headers);
 
   return (
-    <div className="container-sm">
+    <div className="container-sm" style={{ margin: 30, padding: 20 }}>
       {pgn === null ? (
         <div className="spinner-border" />
       ) : (

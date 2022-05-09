@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import { Player } from '../interfaces/Player';
 import SimilarRatingHist from './SimilarRatingHist';
@@ -7,8 +8,6 @@ import SimilarRatingHist from './SimilarRatingHist';
 const PlayerResults = (result: Player): JSX.Element => {
   return (
     <>
-      <SimilarRatingHist id={result.id} />
-
       <h3>Background:</h3>
       {result.bio && <p className="h5">Bio: {result.bio}</p>}
       {result.country && <p className="h5">Country: {result.country}</p>}
@@ -62,6 +61,9 @@ const PlayerResults = (result: Player): JSX.Element => {
           </tr>
         </tbody>
       </Table>
+
+      <h2>Games</h2>
+      <Link to={`/games/${result.id}`}>View Games</Link>
 
       <h3>
         <u>
@@ -190,6 +192,8 @@ const PlayerResults = (result: Player): JSX.Element => {
           </tr>
         </tbody>
       </Table>
+      <hr></hr>
+      <SimilarRatingHist id={result.id} />
     </>
   );
 };

@@ -72,7 +72,7 @@ const PlayersPage = () => {
   };
 
   return (
-    <>
+    <div style={{ margin: 30, padding: 20 }}>
       {/* fetching results, so spinner */}
       {loading && (
         <div className="div-center">
@@ -88,8 +88,6 @@ const PlayersPage = () => {
         <div className="container">
           <h1> Player Review </h1>
           <Link to="/">Back to Home!</Link>
-          <br />
-          <Link to={`/games/${searchQuery.get('q')}`}>View Games</Link>
           <br />
           {result ? (
             <>
@@ -121,7 +119,7 @@ const PlayersPage = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -65,7 +65,7 @@ const PgnDisplay = ({
             },
           )}
       </svg>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center" style={{ padding: 12 }}>
         <button
           className="btn btn-primary m-1"
           onClick={() => {
@@ -77,23 +77,23 @@ const PgnDisplay = ({
         </button>
         <button
           className="btn btn-secondary m-1"
-          disabled={move === moves.length - 2}
-          onClick={() => {
-            chess.move(moves[move]);
-            setMove(move + 1);
-          }}
-        >
-          Next
-        </button>
-        <button
-          className="btn btn-secondary m-1"
           disabled={move === 0}
           onClick={() => {
             chess.undo();
             setMove(move - 1);
           }}
         >
-          Back
+          {'<'}
+        </button>
+        <button
+          className="btn btn-secondary m-1"
+          disabled={move === moves.length - 2}
+          onClick={() => {
+            chess.move(moves[move]);
+            setMove(move + 1);
+          }}
+        >
+          {'>'}
         </button>
       </div>
     </div>
