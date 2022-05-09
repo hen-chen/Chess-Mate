@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="navbar-brand p-1">
         <h1>ChessMate</h1>
       </div>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <div className="nav-item p-2">
         {logUser ? (
           <button
