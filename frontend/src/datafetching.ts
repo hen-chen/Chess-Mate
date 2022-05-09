@@ -1,6 +1,8 @@
 import useSWR from 'use-swr';
 
-const BACKEND_HOST = 'http://localhost:8000';
+import * as CONSTANTS from './constants';
+
+const BACKEND_HOST = CONSTANTS.HOST;
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 // Backend returns sorted history
