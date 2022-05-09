@@ -45,20 +45,18 @@ router.get('/fidetolichesshistory/', (req, res) => {
 })
 
 /**
- * Find all top level games (where the sum of both players’ elo is >= 3000). Find all the players in these games, and get all the players’ countries. Then find all the users in these countries. Sort the users by country and elo.
+ * Find all top level games (where the sum of both players’ elo is >= param elo). Find all the players in these games, and get all the players’ countries. Then find all the users in these countries. Sort the users by country and elo.
  * @param elo the total sum elo (e.g. 4000)
  */
 router.get('/topGamesCountryPlayers/:elo', (req, res) => {
   const { elo } = req.params
+  // example params:
+  // const elo = 3000
   connection.query(
     `WITH top_games AS (
-    SELECT *
-    FROM 
-    (
-      SELECT whiteId, blackId, whiteRating, blackRating, (whiteRating + blackRating) AS sum_elo
-      FROM LichessGames
-    ) SummedElo
-    WHERE SummedElo.sum_elo >= ${elo}
+    SELECT whiteId, blackId
+    FROM LichessGames
+    WHERE (whiteRating + blackRating) >= ${elo}
   ),
   Countries_top_games_white AS (
     SELECT country
@@ -90,15 +88,13 @@ router.get('/topGamesCountryPlayers/:elo', (req, res) => {
  */
 router.get('/poorPlayers/:elo', (req, res) => {
   const { elo } = req.params
+  // example params:
+  // const elo = 2400
   connection.query(
     `WITH poor_games AS (
-      SELECT *
-      FROM
-      (
-        SELECT whiteId, blackId, whiteRating, blackRating, (whiteRating + blackRating) AS sum_elo
-        FROM LichessGames
-      ) SummedElo
-      WHERE SummedElo.sum_elo <= 2400
+      SELECT whiteId, blackId
+      FROM LichessGames
+      WHERE (whiteRating + blackRating) <= 2400
     ),
     Playtime_poor_games_white AS (
       SELECT totalPlayTime, fideRating, lp.id
@@ -125,7 +121,7 @@ router.get('/poorPlayers/:elo', (req, res) => {
 })
 
 /**
- * Given an `id`, find all openings that `id` player has played. Then, find all the players that the play an opening that `id` plays.
+ * Given an `id`, find all openings that `id` player has played. Then, find all the players that play an opening that `id` plays.
  * @param id the player id
  */
 router.get('/getSimilarPlayersOpenings/:id', (req, res) => {
@@ -133,12 +129,12 @@ router.get('/getSimilarPlayersOpenings/:id', (req, res) => {
   connection.query(
     `
     WITH black_games AS (
-        SELECT *
+        SELECT eco
         FROM LichessGames
         WHERE blackId = '${id}'
     ),
     white_games AS (
-        SELECT *
+        SELECT eco
         FROM LichessGames
         WHERE whiteId = '${id}'
     ),
