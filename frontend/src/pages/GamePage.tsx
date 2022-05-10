@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import PgnDisplay from '../components/PgnDisplay';
 import * as CONSTANTS from '../constants';
 // @ts-ignore
@@ -37,8 +37,10 @@ const GamePage = () => {
         <div className="row">
           <div className="col-4">
             <h3>
-              {headers['White']} (White {headers['WhiteElo']}) vs.{' '}
-              {headers['Black']} (Black {headers['BlackElo']})
+              <Link to={`/games/${headers['White']}`}>{headers['White']}</Link>{' '}
+              (White {headers['WhiteElo']}) vs.{' '}
+              <Link to={`/games/${headers['Black']}`}>{headers['Black']}</Link>{' '}
+              (Black {headers['BlackElo']})
             </h3>
             <div>Opening: {headers['Opening']}</div>
             <div>Result: {headers['Result']}</div>

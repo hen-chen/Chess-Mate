@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 const Navbar = () => {
@@ -17,8 +17,11 @@ const Navbar = () => {
 
   return (
     <nav className="d-flex navbar-light bg-light justify-content-between align-items-center">
-      <div className="navbar-brand p-1">
-        <h1>ChessMate</h1>
+      <div className="d-flex align-items-center">
+        <div className="navbar-brand p-1">
+          <h1>ChessMate</h1>
+        </div>
+        <Link to="/">Home</Link>
       </div>
       {/* <SearchBar /> */}
       <div className="nav-item p-2">

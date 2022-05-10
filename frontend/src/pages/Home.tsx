@@ -38,7 +38,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="container-sm p-4 d-flex flex-column align-items-start">
+    <div className="container-sm p-4 d-flex flex-column align-items-center justify-contents-center h-100">
       {/* the search bar for players */}
       <SearchBar />
 

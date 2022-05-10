@@ -9,6 +9,7 @@ const Search = () => {
     <form className="row g-3">
       <div className="col-auto">
         <input
+          style={{ width: '50vw' }}
           className="form-control "
           type="search"
           placeholder="Search Player (e.g. -tristan-)"

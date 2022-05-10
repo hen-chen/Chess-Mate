@@ -87,7 +87,6 @@ const PlayersPage = () => {
         // query to get player has loaded
         <div className="container">
           <h1> Player Review </h1>
-          <Link to="/">Back to Home!</Link>
           <br />
           {result ? (
             <>
