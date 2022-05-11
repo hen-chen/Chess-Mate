@@ -21,7 +21,13 @@ const Navbar = () => {
         <div className="navbar-brand p-1">
           <h1>ChessMate</h1>
         </div>
-        <Link to="/">Home</Link>
+        <Link to="/" style={{ marginLeft: 80, marginRight: 80 }}>
+          Home
+        </Link>
+        <span>
+          Explore: <Link to="/topGames">Top Games</Link> |{' '}
+          <Link to="/poorGames">Amateur Games</Link>
+        </span>
       </div>
       {/* <SearchBar /> */}
       <div className="nav-item p-2">
