@@ -76,7 +76,7 @@ app.get('/users/liked/:loggedUser', async (req, res) => {
 /**
  * put and delete a liked user
  */
- app.put('/users/liked/:loggedUser/:username', async (req, res) => {
+app.put('/users/liked/:loggedUser/:username', async (req, res) => {
   const { loggedUser, username } = req.params
   await lib.putLikePlayer(db, loggedUser, username)
   res.send('Success: added liked player')
@@ -90,11 +90,13 @@ app.delete('/users/liked/:loggedUser/:username', async (req, res) => {
 
 // END ROUTES
 
+const port = process.env.PORT || 45555
+
 // Listening
-app.listen(process.env.PORT || 8000, async () => {
+app.listen(port, async () => {
   try {
     db = await lib.connect(url)
-    console.log('Connected to MongoDB')
+    console.log(`Connected to MongoDB on port ${port}`)
   } catch (error) {
     console.log(error)
     console.log('could not connect to MongoDB')
